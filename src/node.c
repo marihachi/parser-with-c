@@ -2,16 +2,18 @@
 #include "node.h"
 
 node_t *alloc_node(node_kind_t kind) {
-	node_t *ptr;
-	ptr = malloc(sizeof(node_t));
-	if (ptr != NULL) {
-		ptr->kind = kind;
+	node_t *node;
+
+	node = malloc(sizeof(node_t));
+	if (node != NULL) {
+		node->kind = kind;
 	}
-	return ptr;
+	return node;
 }
 
 void add_child(node_t *parent, node_t *child) {
-	node_t * node;
+	node_t *node;
+
 	if (parent->children == NULL) {
 		parent->children = child;
 	} else {
@@ -26,6 +28,7 @@ void add_child(node_t *parent, node_t *child) {
 int count_children(node_t *parent) {
 	int i;
 	node_t *node;
+
 	i = 0;
 	node = parent->children;
 	while (node != NULL) {
