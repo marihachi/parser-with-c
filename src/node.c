@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "node.h"
 
-node_t *alloc_node(node_kind_t kind) {
+node_t *alloc_node(syntax_kind_t kind) {
 	node_t *node;
 
 	node = malloc(sizeof(node_t));
@@ -23,6 +23,22 @@ void add_child(node_t *parent, node_t *child) {
 		}
 		node->next = child;
 	}
+}
+
+void insert_child(node_t *parent, int index, node_t *child) {
+	node_t *node;
+	// TODO
+}
+
+node_t *get_child_at(node_t *parent, int index) {
+	node_t *node;
+
+	node = parent->children;
+	while (node != NULL && index > 0) {
+		node = node->next;
+		index--;
+	}
+	return node;
 }
 
 int count_children(node_t *parent) {
