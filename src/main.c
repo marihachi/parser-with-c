@@ -1,37 +1,38 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "node.h"
+#include "iter.h"
 
 int main(void) {
 	node_t *program, *node;
 
 	// root
-	program = alloc_node(N_PROGRAM);
+	program = new_node(N_PROGRAM);
 
 	// child 0
-	node = alloc_node(N_NUMBER_LITERAL);
-	node->syntax.number_literal = 1;
-	add_child(program, node);
+	node = new_node(N_NUMBER_LITERAL);
+	node->syntax.number_literal.value = 1;
+	node__add_child(program, node);
 
 	// child 1
-	node = alloc_node(N_NUMBER_LITERAL);
-	node->syntax.number_literal = 2;
-	add_child(program, node);
+	node = new_node(N_NUMBER_LITERAL);
+	node->syntax.number_literal.value = 2;
+	node__add_child(program, node);
 
 	// print root
 
 	printf("kind: %d\n", program->kind);
-	printf("children: %d\n", count_children(program));
+	printf("children: %d\n", node__count_child(program));
 
 	// iterate children
 	node = program->children;
-	while (node != NULL) {
+	iterator_t it = get_iterator((iterable_t *)node);
+	while (iterator__next(&it)) {
+		node = (node_t *)it.curr;
 		// print child
 		printf("  child kind: %d\n", node->kind);
 		if (node->kind == N_NUMBER_LITERAL) {
-			printf("  value: %d\n", node->syntax.number_literal);
+			printf("  value: %d\n", node->syntax.number_literal.value);
 		}
-		node = node->next;
 	}
 
 	return 0;
