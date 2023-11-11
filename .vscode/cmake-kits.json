@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Clang",
+    "compilers": {
+      "C": "clang",
+      "CXX": "clang++"
+    },
+    "isTrusted": true
+  },
+  {
+    "name": "GCC",
+    "compilers": {
+      "C": "gcc"
+    },
+    "isTrusted": true
+  },
+  {
+    "name": "Clang llvm-mingw x86_64",
+    "compilers": {
+      "C": "/usr/local/llvm-mingw/bin/x86_64-w64-mingw32-clang"
+    }
+  }
+]

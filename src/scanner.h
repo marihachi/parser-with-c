@@ -6,12 +6,12 @@
 #include "token.h"
 
 typedef struct _scanner {
-	char *source;
-	int source_length;
-	int index;
-	int line;
-	int column;
-	token_t *token;
+  char *source;
+  int source_length;
+  int index;
+  int line;
+  int column;
+  token_t *token;
 } scanner_t;
 
 scanner_t *new_scanner(char *source, int source_length);

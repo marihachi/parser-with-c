@@ -5,31 +5,31 @@
 #include <stdbool.h>
 
 typedef enum _syntax_kind {
-	N_PROGRAM,
-	N_NUMBER_LITERAL,
+  N_PROGRAM,
+  N_NUMBER_LITERAL,
 } syntax_kind_t;
 
 typedef union _syntax {
-	struct {
-		// dummy
-	} program;
+  struct {
+    // dummy
+  } program;
 
-	struct {
-		int value;
-	} number_literal;
+  struct {
+    int value;
+  } number_literal;
 } syntax_t;
 
 typedef struct _node {
-	syntax_kind_t kind;
-	syntax_t syntax;
-	struct _node *next;
-	struct _node *children;
+  syntax_kind_t kind;
+  syntax_t syntax;
+  struct _node *next;
+  struct _node *children;
 } node_t;
 
 // iterator
 typedef struct _iterator {
-	node_t *curr;
-	node_t *next;
+  node_t *curr;
+  node_t *next;
 } iterator_t;
 
 node_t *new_node(syntax_kind_t kind);
