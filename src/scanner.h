@@ -11,7 +11,10 @@ typedef struct _scanner {
 	int index;
 	int line;
 	int column;
+	token_t *token;
 } scanner_t;
+
+scanner_t *new_scanner(char *source, int source_length);
 
 void scan_next(scanner_t *self);
 bool scan_next_with(scanner_t *self, token_kind_t kind);

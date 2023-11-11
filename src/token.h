@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 typedef enum _token_kind {
+	T_EOF,
 	T_IDENTIFIER,
 	T_NUMBER_LITERAL,
 } token_kind_t;
