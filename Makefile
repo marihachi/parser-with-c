@@ -1,20 +1,23 @@
-build: bin/parser
+build: bin obj bin/parser
 
 # executable
 
-bin/parser: bin obj/main.o obj/node.o obj/iter.o
-	clang -o bin/parser obj/main.o obj/node.o obj/iter.o
+bin/parser: obj/main.o obj/token.o obj/scanner.o obj/node.o
+	clang -o bin/parser obj/main.o obj/token.o obj/scanner.o obj/node.o
 
 # objects
 
-obj/main.o: obj src/main.c
+obj/main.o: src/main.c
 	clang -c -o obj/main.o src/main.c
 
-obj/node.o: obj src/node.c
-	clang -c -o obj/node.o src/node.c
+obj/token.o: src/token.c
+	clang -c -o obj/token.o src/token.c
 
-obj/iter.o: obj src/iter.c
-	clang -c -o obj/iter.o src/iter.c
+obj/scanner.o: src/scanner.c
+	clang -c -o obj/scanner.o src/scanner.c
+
+obj/node.o: src/node.c
+	clang -c -o obj/node.o src/node.c
 
 # directories
 

@@ -53,3 +53,25 @@ int count_child_node(node_t *self) {
 	}
 	return i;
 }
+
+iterator_t create_iterator(node_t *source) {
+	iterator_t it;
+	it.curr = NULL;
+	it.next = source;
+	return it;
+}
+
+/** @returns successful */
+bool next_iterator_item(iterator_t *self) {
+	self->curr = self->next;
+	if (self->curr == NULL) {
+		// next item not exists
+		return false;
+	}
+	self->next = self->next->next;
+	return true;
+}
+
+node_t *get_iterator_item(iterator_t *self) {
+	return self->curr;
+}

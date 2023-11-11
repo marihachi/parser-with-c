@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "token.h"
 #include "node.h"
-#include "iter.h"
+#include "scanner.h"
 
 int main(void) {
 	node_t *program, *node;
@@ -25,9 +26,9 @@ int main(void) {
 
 	// iterate children
 	node = program->children;
-	iterator_t it = get_iterator((iterable_t *)node);
-	while (next_item(&it)) {
-		node = (node_t *)it.curr;
+	iterator_t it = create_iterator(node);
+	while (next_iterator_item(&it)) {
+		node = get_iterator_item(&it);
 		// print child
 		printf("  child kind: %d\n", node->kind);
 		if (node->kind == N_NUMBER_LITERAL) {
