@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include "token.h"
 
 typedef struct _scanner {
 	char *source;
@@ -11,17 +12,6 @@ typedef struct _scanner {
 	int line;
 	int column;
 } scanner_t;
-
-typedef enum _token_kind {
-	T_IDENTIFIER,
-	T_NUMBER_LITERAL,
-} token_kind_t;
-
-typedef struct _token {
-	token_kind_t kind;
-	char *value;
-	int value_length;
-} token_t;
 
 void scan_next(scanner_t *self);
 bool scan_next_with(scanner_t *self, token_kind_t kind);

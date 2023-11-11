@@ -8,7 +8,7 @@ iterator_t get_iterator(iterable_t *source) {
 }
 
 /** @returns successful */
-bool iterator__next(iterator_t *self) {
+bool next_item(iterator_t *self) {
 	self->curr = self->next;
 	if (self->curr == NULL) {
 		// next item not exists

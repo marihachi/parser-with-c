@@ -11,22 +11,22 @@ int main(void) {
 	// child 0
 	node = new_node(N_NUMBER_LITERAL);
 	node->syntax.number_literal.value = 1;
-	node__add_child(program, node);
+	add_child_node(program, node);
 
 	// child 1
 	node = new_node(N_NUMBER_LITERAL);
 	node->syntax.number_literal.value = 2;
-	node__add_child(program, node);
+	add_child_node(program, node);
 
 	// print root
 
 	printf("kind: %d\n", program->kind);
-	printf("children: %d\n", node__count_child(program));
+	printf("children: %d\n", count_child_node(program));
 
 	// iterate children
 	node = program->children;
 	iterator_t it = get_iterator((iterable_t *)node);
-	while (iterator__next(&it)) {
+	while (next_item(&it)) {
 		node = (node_t *)it.curr;
 		// print child
 		printf("  child kind: %d\n", node->kind);

@@ -32,9 +32,9 @@ typedef struct _node {
 } node_t;
 
 node_t *new_node(syntax_kind_t kind);
-void node__add_child(node_t *self, node_t *child);
-void node__insert_child(node_t *self, int index, node_t *child);
-node_t *node__get_child_at(node_t *self, int index);
-int node__count_child(node_t *self);
+void add_child_node(node_t *self, node_t *child);
+void insert_child_node(node_t *self, int index, node_t *child);
+node_t *get_child_node_at(node_t *self, int index);
+int count_child_node(node_t *self);
 
 #endif

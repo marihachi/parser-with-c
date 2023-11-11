@@ -14,6 +14,6 @@ typedef struct _iterator {
 } iterator_t;
 
 iterator_t get_iterator(iterable_t *source);
-bool iterator__next(iterator_t *self);
+bool next_item(iterator_t *self);
 
 #endif

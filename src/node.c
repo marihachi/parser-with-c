@@ -10,7 +10,7 @@ node_t *new_node(syntax_kind_t kind) {
 	return node;
 }
 
-void node__add_child(node_t *self, node_t *child) {
+void add_child_node(node_t *self, node_t *child) {
 	node_t *node;
 
 	if (self->children == NULL) {
@@ -24,13 +24,13 @@ void node__add_child(node_t *self, node_t *child) {
 	}
 }
 
-void node__insert_child(node_t *self, int index, node_t *child) {
+void insert_child_node(node_t *self, int index, node_t *child) {
 	node_t *node;
 	// TODO
 	abort();
 }
 
-node_t *node__get_child_at(node_t *self, int index) {
+node_t *get_child_node_at(node_t *self, int index) {
 	node_t *node;
 
 	node = self->children;
@@ -41,7 +41,7 @@ node_t *node__get_child_at(node_t *self, int index) {
 	return node;
 }
 
-int node__count_child(node_t *self) {
+int count_child_node(node_t *self) {
 	int i;
 	node_t *node;
 
