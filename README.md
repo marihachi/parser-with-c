@@ -6,8 +6,8 @@ Experimental parser with C.
 - ms-vscode.cmake-tools
 
 ## コンパイル (vscode拡張)
-GUIでやっていってください
-vscode拡張の機能でプロジェクトにkitを定義できる`.vscode/cmake-kits.json`
+GUIでやっていってください  
+vscode拡張の機能でプロジェクトにkitを定義できる`.vscode/cmake-kits.json`  
 コンパイラが認識されない場合などに使えそう
 
 ## コンパイル (コマンド)
