@@ -27,6 +27,7 @@ void node__add_child(node_t *self, node_t *child) {
 void node__insert_child(node_t *self, int index, node_t *child) {
 	node_t *node;
 	// TODO
+	abort();
 }
 
 node_t *node__get_child_at(node_t *self, int index) {
