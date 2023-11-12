@@ -7,6 +7,10 @@ Experimental parser with C.
 - Clang or llvm-mingw(for Windows binary)
 - lld
 
+## デバッグツール
+- lldb
+- lldb-mi
+
 ## コンパイル (コマンド)
 Compile a Linux binary:
 ```sh
