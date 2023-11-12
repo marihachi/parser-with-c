@@ -21,6 +21,30 @@ static bool next_index(scanner_t *self) {
   return true;
 }
 
+static bool scan_token(scanner_t *self) {
+  char ch;
+
+  if (self->index >= self->source_length) {
+    self->token = new_token(T_EOF);
+    return true;
+  }
+
+  ch = get_char(self);
+
+  switch (ch) {
+
+  }
+
+  if (scan_number(self)) {
+    return true;
+  }
+  if (scan_word(self)) {
+    return true;
+  }
+  // syntax error
+  return false;
+}
+
 static bool scan_number(scanner_t *self) {
   get_char(self);
   // TODO
@@ -43,55 +67,44 @@ scanner_t *new_scanner(char *source, int source_length) {
     ptr->line = 0;
     ptr->column = 0;
     ptr->token = NULL;
+    scan_token(ptr);
   }
 
   return ptr;
 }
 
-bool scan_current(scanner_t *self) {
-  char ch;
-
-  if (self->index >= self->source_length) {
-    self->token = new_token(T_EOF);
+bool scan_next(scanner_t *self) {
+  if (get_kind(self) == T_EOF) {
     return true;
   }
-
-  ch = get_char(self);
-
-  switch (ch) {
-
-  }
-
-  if (scan_number(self)) {
-    return true;
-  }
-  if (scan_word(self)) {
-    return true;
-  }
-  return false;
-}
-
-void scan_next(scanner_t *self) {
-  // TODO
-  abort();
+  return scan_token(self);
 }
 
 bool scan_next_with(scanner_t *self, token_kind_t kind) {
-  // TODO
-  abort();
+  if (!expect_token(self, kind)) {
+    return false;
+  }
+  scan_next(self);
+  return true;
 }
 
 bool expect_token(scanner_t *self, token_kind_t kind) {
-  // TODO
-  abort();
+  if (get_kind(self) != kind) {
+    // syntax error
+    return false;
+  }
+  return true;
 }
 
 token_kind_t get_kind(scanner_t *self) {
-  // TODO
-  abort();
+  token_t * token = get_token(self);
+  if (token == NULL) {
+    // exception
+    abort();
+  }
+  return token->kind;
 }
 
 token_t *get_token(scanner_t *self) {
-  // TODO
-  abort();
+  return self->token;
 }
