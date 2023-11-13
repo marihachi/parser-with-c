@@ -10,9 +10,10 @@ typedef enum _token_kind {
 } token_kind_t;
 
 typedef struct _token {
-  token_kind_t kind;
-  char *value;
-  int value_length;
+  token_kind_t kind : 8;
+  int value_length : 8;
+  int PADDING_1 : 16;
+  char value[32];
 } token_t;
 
 token_t *new_token(token_kind_t kind);
