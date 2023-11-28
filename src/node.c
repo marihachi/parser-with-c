@@ -4,11 +4,16 @@ node_t *new_node(syntax_kind_t kind) {
   node_t *node;
 
   node = malloc(sizeof(node_t));
-  if (node != NULL) {
-    node->kind = kind;
-    node->children = NULL;
-    node->next = NULL;
+
+  if (node == NULL) {
+    printf("FAIL: malloc in new_node()\n");
+    while (1) {}
   }
+
+  node->kind = kind;
+  node->children = NULL;
+  node->next = NULL;
+
   return node;
 }
 
@@ -39,8 +44,8 @@ void insert_child_node(node_t *self, int index, node_t *child) {
   }
 
   if (index != 0) {
-    // error
-    abort();
+    printf("FAIL: index out of range in insert_child_node()\n");
+    while (1) {}
   }
 
   node = get_item(&it);
@@ -58,8 +63,8 @@ node_t *get_child_node_at(node_t *self, int index) {
   }
 
   if (index != 0) {
-    // error
-    abort();
+    printf("FAIL: index out of range in get_child_node_at()\n");
+    while (1) {}
   }
 
   return get_item(&it);

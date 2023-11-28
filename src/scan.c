@@ -10,15 +10,18 @@ scanner_t *new_scanner(char *source, int source_length) {
   scanner_t *ptr;
   ptr = malloc(sizeof(scanner_t));
 
-  if (ptr != NULL) {
-    ptr->source = source;
-    ptr->source_length = source_length;
-    ptr->index = 0;
-    ptr->line = 0;
-    ptr->column = 0;
-    ptr->token = NULL;
-    scan_token(ptr);
+  if (ptr == NULL) {
+    printf("FAIL: malloc in new_scanner()\n");
+    while (1) {}
   }
+
+  ptr->source = source;
+  ptr->source_length = source_length;
+  ptr->index = 0;
+  ptr->line = 0;
+  ptr->column = 0;
+  ptr->token = NULL;
+  scan_token(ptr);
 
   return ptr;
 }
@@ -30,8 +33,8 @@ token_t *get_token(scanner_t *self) {
 token_kind_t get_kind(scanner_t *self) {
   token_t * token = get_token(self);
   if (token == NULL) {
-    // error
-    abort();
+    printf("FAIL: get token in get_kind()\n");
+    while (1) {}
   }
   return token->kind;
 }
@@ -45,7 +48,7 @@ bool scan_next(scanner_t *self) {
 
 bool expect_token(scanner_t *self, token_kind_t kind) {
   if (get_kind(self) != kind) {
-    // syntax error
+    printf("SyntaxError: unexpected token\n");
     return false;
   }
   return true;
@@ -106,7 +109,7 @@ static bool scan_token(scanner_t *self) {
     return true;
   }
 
-  // syntax error
+  printf("SyntaxError: unexpected token\n");
   return false;
 }
 
@@ -178,9 +181,8 @@ static bool scan_word(scanner_t *self) {
 
 static char get_char(scanner_t *self) {
   if (is_eof(self)) {
-    // error
-    abort();
-    return 0;
+    printf("FAIL: EOF in get_char()\n");
+    while (1) {}
   }
   return *(self->source + self->index);
 }
@@ -193,10 +195,14 @@ static token_t *new_token(token_kind_t kind) {
   token_t *ptr;
 
   ptr = malloc(sizeof(token_t));
-  if (ptr != NULL) {
-    ptr->kind = kind;
-    ptr->value_ptr = NULL;
-    ptr->value_length = 0;
+  if (ptr == NULL) {
+    printf("FAIL: malloc\n");
+    while (1) {}
   }
+
+  ptr->kind = kind;
+  ptr->value_ptr = NULL;
+  ptr->value_length = 0;
+
   return ptr;
 }
