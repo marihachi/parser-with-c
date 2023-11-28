@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "node.h"
-#include "scanner.h"
+#include "scan.h"
 
 int main(void) {
   node_t *program, *node;

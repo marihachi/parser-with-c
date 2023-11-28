@@ -1,9 +1,28 @@
-#ifndef _SCANNER_H
-#define _SCANNER_H
+#ifndef _SCAN_H
+#define _SCAN_H
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
-#include "token.h"
+#include <string.h>
+
+typedef enum _token_kind {
+  T_EOF,
+  T_IDENTIFIER,
+  T_NUMBER_LITERAL,
+  T_OPEN_PAREN, // "("
+  T_CLOSE_PAREN, // ")"
+  T_OPEN_BRACE, // "{"
+  T_CLOSE_BRACE, // "{"
+  T_OPEN_BRACKET, // "["
+  T_CLOSE_BRACKET, // "]"
+} token_kind_t;
+
+typedef struct _token {
+  token_kind_t kind;
+  int value_length;
+  uint8_t *value_ptr;
+} token_t;
 
 typedef struct _scanner {
   char *source;
