@@ -7,15 +7,46 @@
 #include <string.h>
 
 typedef enum _token_kind {
-  T_EOF,
+  // Special
+  T_EOF = 0x00,
   T_IDENTIFIER,
   T_NUMBER_LITERAL,
+  T_CHAR_LITERAL,
+  T_STRING_LITERAL,
+
+  // Symbol
+  T_EXCL = 0x40, // "!"
+  T_PERCENT, // "%"
+  T_AND1, // "&"
+  T_AND2, // "&&"
   T_OPEN_PAREN, // "("
   T_CLOSE_PAREN, // ")"
-  T_OPEN_BRACE, // "{"
-  T_CLOSE_BRACE, // "{"
+  T_ASTER, // "*"
+  T_PLUS, // "+"
+  T_COMMA, // ","
+  T_MINUS, // "-"
+  T_DOT, // "."
+  T_SLASH, // "/"
+  T_COLON, // ":"
+  T_SEMI, // ";"
+  T_LT, // "<"
+  T_LTE, // "<="
+  T_EQ1, // "="
+  T_EQ2, // "=="
+  T_GT, // ">"
+  T_GTE, // ">="
+  T_QUEST, // "?"
   T_OPEN_BRACKET, // "["
   T_CLOSE_BRACKET, // "]"
+  T_HAT, // "^"
+  T_OPEN_BRACE, // "{"
+  T_OR1, // "|"
+  T_OR2, // "||"
+  T_CLOSE_BRACE, // "}"
+  T_TILDE, // "~"
+
+  // Keyword
+  T_IF = 0x80,
 } token_kind_t;
 
 typedef struct _token {
