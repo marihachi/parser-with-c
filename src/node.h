@@ -7,23 +7,27 @@
 typedef enum _syntax_kind {
   N_PROGRAM,
   N_NUMBER_LITERAL,
+  N_IDENTIFIER,
 } syntax_kind_t;
 
 typedef union _syntax {
-  struct {
-    // dummy
-  } program;
+  struct { } program;
 
   struct {
     int value;
   } number_literal;
+
+  struct {
+    int name_length;
+    uint8_t *name_ptr;
+  } identifier;
 } syntax_t;
 
 typedef struct _node {
-  syntax_kind_t kind;
-  syntax_t syntax;
   struct _node *next;
   struct _node *children;
+  syntax_kind_t kind;
+  syntax_t syntax;
 } node_t;
 
 // iterator
@@ -39,9 +43,9 @@ node_t *get_child_node_at(node_t *self, int index);
 int count_child_node(node_t *self);
 
 // iterator
-iterator_t create_iterator(node_t *source);
+iterator_t new_iter(node_t *source);
 /** @returns successful */
-bool next_iterator_item(iterator_t *self);
-node_t *get_iterator_item(iterator_t *self);
+bool next_item(iterator_t *self);
+node_t *get_item(iterator_t *self);
 
 #endif

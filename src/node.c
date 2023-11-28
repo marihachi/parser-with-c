@@ -54,7 +54,7 @@ int count_child_node(node_t *self) {
   return i;
 }
 
-iterator_t create_iterator(node_t *source) {
+iterator_t new_iter(node_t *source) {
   iterator_t it;
   it.curr = NULL;
   it.next = source;
@@ -62,16 +62,16 @@ iterator_t create_iterator(node_t *source) {
 }
 
 /** @returns successful */
-bool next_iterator_item(iterator_t *self) {
-  self->curr = self->next;
-  if (self->curr == NULL) {
+bool next_item(iterator_t *self) {
+  if (self->next == NULL) {
     // next item not exists
     return false;
   }
-  self->next = self->next->next;
+  self->curr = self->next;
+  self->next = self->curr->next;
   return true;
 }
 
-node_t *get_iterator_item(iterator_t *self) {
+node_t *get_item(iterator_t *self) {
   return self->curr;
 }
