@@ -21,13 +21,13 @@ int main(void) {
   // print root
 
   printf("kind: %d\n", program->kind);
-  printf("children: %d\n", count_child_node(program));
+  printf("children: %d\n", count_children(program));
 
   // iterate children
   node = program->children;
-  iterator_t it = create_iterator(node);
-  while (next_iterator_item(&it)) {
-    node = get_iterator_item(&it);
+  iterator_t it = new_iter(node);
+  while (next_item(&it)) {
+    node = get_item(&it);
     // print child
     printf("  child kind: %d\n", node->kind);
     if (node->kind == N_NUMBER_LITERAL) {

@@ -11,46 +11,69 @@ node_t *new_node(syntax_kind_t kind) {
 }
 
 void add_child_node(node_t *self, node_t *child) {
+  iterator_t it;
   node_t *node;
 
   if (self->children == NULL) {
     self->children = child;
   } else {
-    node = self->children;
-    while (node->next != NULL) {
-      node = node->next;
-    }
+    it = new_iter(self->children);
+
+    while (next_item(&it)) { }
+    node = get_item(&it);
+
     node->next = child;
   }
 }
 
 void insert_child_node(node_t *self, int index, node_t *child) {
+  iterator_t it;
   node_t *node;
-  // TODO
-  abort();
+
+  it = new_iter(self->children);
+
+  while (next_item(&it) && index > 0) {
+    index--;
+  }
+
+  if (index != 0) {
+    // error
+    abort();
+  }
+
+  node = get_item(&it);
+  child->next = node->next;
+  node->next = child;
 }
 
 node_t *get_child_node_at(node_t *self, int index) {
-  node_t *node;
+  iterator_t it;
 
-  node = self->children;
-  while (node != NULL && index > 0) {
-    node = node->next;
+  it = new_iter(self->children);
+
+  while (next_item(&it) && index > 0) {
     index--;
   }
-  return node;
+
+  if (index != 0) {
+    // error
+    abort();
+  }
+
+  return get_item(&it);
 }
 
-int count_child_node(node_t *self) {
+int count_children(node_t *self) {
+  iterator_t it;
   int i;
-  node_t *node;
+
+  it = new_iter(self->children);
 
   i = 0;
-  node = self->children;
-  while (node != NULL) {
+  while (next_item(&it)) {
     i++;
-    node = node->next;
   }
+
   return i;
 }
 

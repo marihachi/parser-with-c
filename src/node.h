@@ -2,6 +2,7 @@
 #define _NODE_H
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
 
 typedef enum _syntax_kind {
@@ -40,7 +41,7 @@ node_t *new_node(syntax_kind_t kind);
 void add_child_node(node_t *self, node_t *child);
 void insert_child_node(node_t *self, int index, node_t *child);
 node_t *get_child_node_at(node_t *self, int index);
-int count_child_node(node_t *self);
+int count_children(node_t *self);
 
 // iterator
 iterator_t new_iter(node_t *source);
