@@ -196,6 +196,7 @@ static token_t *new_token(token_kind_t kind) {
   if (ptr != NULL) {
     ptr->kind = kind;
     ptr->value_ptr = NULL;
+    ptr->value_length = 0;
   }
   return ptr;
 }

@@ -6,6 +6,8 @@ node_t *new_node(syntax_kind_t kind) {
   node = malloc(sizeof(node_t));
   if (node != NULL) {
     node->kind = kind;
+    node->children = NULL;
+    node->next = NULL;
   }
   return node;
 }
