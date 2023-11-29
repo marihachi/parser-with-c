@@ -10,6 +10,8 @@ typedef enum _syntax_kind {
   N_PROGRAM,
   N_NUMBER_LITERAL,
   N_IDENTIFIER,
+  N_FUNC_DECL,
+  N_VAR_DECL,
 } syntax_kind_t;
 
 typedef union _syntax {
@@ -32,22 +34,13 @@ typedef struct _node {
   syntax_t syntax;
 } node_t;
 
-// iterator
-typedef struct _iterator {
-  node_t *curr;
-  node_t *next;
-} iterator_t;
-
 node_t *new_node(syntax_kind_t kind);
-void add_child_node(node_t *self, node_t *child);
-void insert_child_node(node_t *self, int index, node_t *child);
-node_t *get_child_node_at(node_t *self, int index);
-int count_children(node_t *self);
 
-// iterator
-iterator_t new_iter(node_t *source);
-/** @returns successful */
-bool next_item(iterator_t *self);
-node_t *get_item(iterator_t *self);
+// node list
+void list_add(node_t **list, node_t *item);
+void list_insert(node_t **list, int index, node_t *item);
+node_t *list_at(node_t **list, int index);
+int list_count(node_t **list);
+void list_move_next(node_t **list);
 
 #endif
