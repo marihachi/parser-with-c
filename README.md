@@ -1,17 +1,13 @@
 # Parser with C
 Experimental parser with C.
 
-## ツール
+## ビルド (Linux)
+**ツールチェーン**
 - CMake
 - Ninja
 - Clang
 - lld
 
-## デバッグツール
-- lldb
-- lldb-mi
-
-## ビルド (Linux)
 ```sh
 cmake -B build -G Ninja -D CMAKE_TOOLCHAIN_FILE=./cmake/x86_64-linux-clang.cmake
 cmake --build build
@@ -23,6 +19,10 @@ Clangの代わりにllvm-mingwを導入するとLinux上でWindowsバイナリ�
 cmake -B build -G Ninja -D CMAKE_TOOLCHAIN_FILE=./cmake/x86_64-windows-mingw.cmake
 cmake --build build
 ```
+
+## デバッグツール
+- lldb
+- lldb-mi
 
 ## License
 MIT License
