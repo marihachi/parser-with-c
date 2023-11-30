@@ -2,6 +2,8 @@
 #include "node.h"
 #include "scan.h"
 
+#ifndef TEST
+
 int main(void) {
   node_t *program, *node, *children;
 
@@ -37,3 +39,5 @@ int main(void) {
 
   return 0;
 }
+
+#endif
