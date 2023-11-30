@@ -37,7 +37,7 @@ void list_insert(node_t **list, int index, node_t *item) {
       list_move_next(&ptr);
     }
     if (index > 1 || ptr == NULL) {
-      printf("FAIL: index out of range in insert_child_node()\n");
+      printf("FAIL: index out of range in list_insert()\n");
       while (1) {}
     }
     item->next = ptr->next;
@@ -52,7 +52,7 @@ node_t *list_at(node_t **list, int index) {
     list_move_next(&ptr);
   }
   if (index != 0 || ptr == NULL) {
-    printf("FAIL: index out of range in get_child_node_at()\n");
+    printf("FAIL: index out of range in list_at()\n");
     while (1) {}
   }
   return ptr;

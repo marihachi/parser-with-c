@@ -3,36 +3,36 @@
 #include "scan.h"
 
 int main(void) {
-  node_t *program, *node;
+  node_t *program, *node, *children;
 
   // root
   program = new_node(N_PROGRAM);
+  children = program->children;
 
   // child 0
   node = new_node(N_NUMBER_LITERAL);
   node->syntax.number_literal.value = 1;
-  add_child_node(program, node);
+  list_add(&children, node);
 
   // child 1
   node = new_node(N_NUMBER_LITERAL);
   node->syntax.number_literal.value = 2;
-  add_child_node(program, node);
+  list_add(&children, node);
 
   // print root
 
   printf("kind: %d\n", program->kind);
-  printf("children: %d\n", count_children(program));
+  printf("children: %d\n", list_count(&children));
 
   // iterate children
-  node = program->children;
-  iterator_t it = new_iter(node);
-  while (next_item(&it)) {
-    node = get_item(&it);
+  node = children;
+  while (node != NULL) {
     // print child
     printf("  child kind: %d\n", node->kind);
     if (node->kind == N_NUMBER_LITERAL) {
       printf("  value: %d\n", node->syntax.number_literal.value);
     }
+    list_move_next(&node);
   }
 
   return 0;
