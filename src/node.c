@@ -14,8 +14,8 @@ node_t *new_node(syntax_kind_t kind) {
 }
 
 void list_add(node_t **list, node_t *item) {
-  if (list == NULL) { printf("FAIL: arg is null ptr in list_add()\n"); exit(EXIT_FAILURE); }
-  if (item == NULL) { printf("FAIL: arg is null ptr in list_add()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) { printf("FAIL: null argument in list_add()\n"); exit(EXIT_FAILURE); }
+  if (item == NULL) { printf("FAIL: null argument in list_add()\n"); exit(EXIT_FAILURE); }
 
   if ((*list) == NULL) {
     *list = item;
@@ -28,8 +28,8 @@ void list_add(node_t **list, node_t *item) {
 }
 
 void list_insert(node_t **list, int index, node_t *item) {
-  if (list == NULL) { printf("FAIL: arg is null ptr in list_insert()\n"); exit(EXIT_FAILURE); }
-  if (item == NULL) { printf("FAIL: arg is null ptr in list_insert()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) { printf("FAIL: null argument in list_insert()\n"); exit(EXIT_FAILURE); }
+  if (item == NULL) { printf("FAIL: null argument in list_insert()\n"); exit(EXIT_FAILURE); }
 
   node_t *ptr = *list;
   if (index == 0) {
@@ -52,7 +52,7 @@ void list_insert(node_t **list, int index, node_t *item) {
 }
 
 node_t *list_at(node_t **list, int index) {
-  if (list == NULL) { printf("FAIL: arg is null ptr in list_at()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) { printf("FAIL: null argument in list_at()\n"); exit(EXIT_FAILURE); }
 
   node_t *ptr = *list;
   while (ptr != NULL && index > 0) {
@@ -67,7 +67,7 @@ node_t *list_at(node_t **list, int index) {
 }
 
 int list_count(node_t **list) {
-  if (list == NULL) { printf("FAIL: arg is null ptr in list_count()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) { printf("FAIL: null argument in list_count()\n"); exit(EXIT_FAILURE); }
 
   node_t *ptr = *list;
   int i = 0;
@@ -79,7 +79,7 @@ int list_count(node_t **list) {
 }
 
 void list_move_next(node_t **list) {
-  if (list == NULL) { printf("FAIL: arg is null ptr in list_move_next()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) { printf("FAIL: null argument in list_move_next()\n"); exit(EXIT_FAILURE); }
 
   if ((*list) != NULL) {
     *list = (*list)->next;
