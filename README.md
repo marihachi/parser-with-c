@@ -1,5 +1,5 @@
 # Parser with C
-A C parser made with C.
+A parser of C written with C.
 
 This is an experimental project.
 
