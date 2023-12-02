@@ -1,4 +1,4 @@
-# Parser with C
+# Toy C Parser
 A parser of C written with C.
 
 This is an experimental project.
