@@ -3,7 +3,10 @@ A parser of C written with C.
 
 This is an experimental project.
 
-## Build (Linux)
+## Build
+Only Linux is supported.  
+WSL is available for Windows.
+
 **Tools**
 - CMake
 - Clang
