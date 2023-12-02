@@ -1,8 +1,8 @@
-
 #include <string.h>
 
 #define TEST_CASE_REQUIRED 100
 #define TEST_CASE_NOT_EXISTS 101
+
 #define REGISTER_TEST(name) if (strcmp(argv[1], #name) == 0) return name()
 
 // declare test cases
