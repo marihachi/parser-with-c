@@ -13,6 +13,6 @@ add_executable(main ${SOURCES})
 
 file(GLOB_RECURSE TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "test/*.c")
 add_executable(test_suite ${TEST_SOURCES} ${SOURCES})
-target_compile_definitions(test_suite PRIVATE TEST)
+target_compile_definitions(test_suite PRIVATE TEST_MODE)
 
 add_test(NAME test_list COMMAND test_suite test_list)

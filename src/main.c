@@ -2,7 +2,7 @@
 #include "node.h"
 #include "scan.h"
 
-#ifndef TEST
+#ifndef TEST_MODE
 
 int main(void) {
   node_t *program, *node, *children;
