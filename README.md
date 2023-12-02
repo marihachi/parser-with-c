@@ -13,7 +13,7 @@ cmake -B build -D CMAKE_TOOLCHAIN_FILE=./cmake/x86_64-linux-clang.cmake
 cmake --build build
 ```
 
-### with Ninja
+### Use Ninja instead of Make
 ```sh
 cmake -B build -G Ninja -D CMAKE_TOOLCHAIN_FILE=./cmake/x86_64-linux-clang.cmake
 cmake --build build
