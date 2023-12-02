@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "util.h"
 
 typedef enum _syntax_kind {
   N_PROGRAM,

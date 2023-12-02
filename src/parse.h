@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "node.h"
 #include "scan.h"
+#include "util.h"
 
 node_t *parse(char *input, int input_length);
 node_t *parse_decl(scanner_t *s);

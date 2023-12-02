@@ -1,16 +1,15 @@
 #include "parse.h"
 
 node_t *parse(char *input, int input_length) {
-  if (input == NULL) { printf("FAIL: null argument in parse()\n"); exit(EXIT_FAILURE); }
+  if (input == NULL) THROW("FAIL: null argument in parse()\n");
 
   scanner_t *s = new_scanner(input, input_length);
 
-  printf("todo\n");
-  exit(EXIT_FAILURE);
+  return parse_decls(s);
 }
 
 node_t *parse_decls(scanner_t *s) {
-  if (s == NULL) { printf("FAIL: null argument in parse_decls()\n"); exit(EXIT_FAILURE); }
+  if (s == NULL) THROW("FAIL: null argument in parse_decls()\n");
 
   node_t *node = new_node(N_PROGRAM);
   node_t *decl = NULL;
@@ -24,22 +23,19 @@ node_t *parse_decls(scanner_t *s) {
 
 // function or variable
 node_t *parse_decl(scanner_t *s) {
-  if (s == NULL) { printf("FAIL: null argument in parse_decl()\n"); exit(EXIT_FAILURE); }
+  if (s == NULL) THROW("FAIL: null argument in parse_decl()\n");
 
-  printf("todo\n");
-  exit(EXIT_FAILURE);
+  THROW("todo\n");
 }
 
 node_t *parse_statement(scanner_t *s) {
-  if (s == NULL) { printf("FAIL: null argument in parse_statement()\n"); exit(EXIT_FAILURE); }
+  if (s == NULL) THROW("FAIL: null argument in parse_statement()\n");
 
-  printf("todo\n");
-  exit(EXIT_FAILURE);
+  THROW("todo\n");
 }
 
 node_t *parse_expression(scanner_t *s) {
-  if (s == NULL) { printf("FAIL: null argument in parse_expression()\n"); exit(EXIT_FAILURE); }
+  if (s == NULL) THROW("FAIL: null argument in parse_expression()\n");
 
-  printf("todo\n");
-  exit(EXIT_FAILURE);
+  THROW("todo\n");
 }

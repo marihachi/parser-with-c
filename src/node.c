@@ -3,10 +3,8 @@
 node_t *new_node(syntax_kind_t kind) {
   node_t *node;
   node = malloc(sizeof(node_t));
-  if (node == NULL) {
-    printf("FAIL: malloc in new_node()\n");
-    exit(EXIT_FAILURE);
-  }
+  if (node == NULL) THROW("FAIL: malloc in new_node()\n");
+
   node->kind = kind;
   node->children = NULL;
   node->next = NULL;
@@ -14,8 +12,8 @@ node_t *new_node(syntax_kind_t kind) {
 }
 
 void list_add(node_t **list, node_t *item) {
-  if (list == NULL) { printf("FAIL: null argument in list_add()\n"); exit(EXIT_FAILURE); }
-  if (item == NULL) { printf("FAIL: null argument in list_add()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) THROW("FAIL: null argument in list_add()\n");
+  if (item == NULL) THROW("FAIL: null argument in list_add()\n");
 
   if ((*list) == NULL) {
     *list = item;
@@ -28,8 +26,8 @@ void list_add(node_t **list, node_t *item) {
 }
 
 void list_insert(node_t **list, int index, node_t *item) {
-  if (list == NULL) { printf("FAIL: null argument in list_insert()\n"); exit(EXIT_FAILURE); }
-  if (item == NULL) { printf("FAIL: null argument in list_insert()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) THROW("FAIL: null argument in list_insert()\n");
+  if (item == NULL) THROW("FAIL: null argument in list_insert()\n");
 
   node_t *ptr = *list;
   if (index == 0) {
@@ -42,32 +40,28 @@ void list_insert(node_t **list, int index, node_t *item) {
       index--;
       list_move_next(&ptr);
     }
-    if (index > 1 || ptr == NULL) {
-      printf("FAIL: index out of range in list_insert()\n");
-      exit(EXIT_FAILURE);
-    }
+    if (index > 1 || ptr == NULL) THROW("FAIL: index out of range in list_insert()\n");
+
     item->next = ptr->next;
     ptr->next = item;
   }
 }
 
 node_t *list_at(node_t **list, int index) {
-  if (list == NULL) { printf("FAIL: null argument in list_at()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) THROW("FAIL: null argument in list_at()\n");
 
   node_t *ptr = *list;
   while (ptr != NULL && index > 0) {
     index--;
     list_move_next(&ptr);
   }
-  if (index != 0 || ptr == NULL) {
-    printf("FAIL: index out of range in list_at()\n");
-    exit(EXIT_FAILURE);
-  }
+  if (index != 0 || ptr == NULL) THROW("FAIL: index out of range in list_at()\n");
+
   return ptr;
 }
 
 int list_count(node_t **list) {
-  if (list == NULL) { printf("FAIL: null argument in list_count()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) THROW("FAIL: null argument in list_count()\n");
 
   node_t *ptr = *list;
   int i = 0;
@@ -79,7 +73,7 @@ int list_count(node_t **list) {
 }
 
 void list_move_next(node_t **list) {
-  if (list == NULL) { printf("FAIL: null argument in list_move_next()\n"); exit(EXIT_FAILURE); }
+  if (list == NULL) THROW("FAIL: null argument in list_move_next()\n");
 
   if ((*list) != NULL) {
     *list = (*list)->next;

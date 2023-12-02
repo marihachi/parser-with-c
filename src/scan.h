@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include "util.h"
 
 typedef enum _token_kind {
   // Special

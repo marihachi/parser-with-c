@@ -7,15 +7,12 @@ static bool is_eof(scanner_t *self);
 static token_t *new_token(token_kind_t kind);
 
 scanner_t *new_scanner(char *source, int source_length) {
-  if (source == NULL) { printf("FAIL: null argument in new_scanner()\n"); exit(EXIT_FAILURE); }
+  if (source == NULL) THROW("FAIL: null argument in new_scanner()\n");
 
   scanner_t *ptr;
   ptr = malloc(sizeof(scanner_t));
 
-  if (ptr == NULL) {
-    printf("FAIL: malloc in new_scanner()\n");
-    exit(EXIT_FAILURE);
-  }
+  if (ptr == NULL) THROW("FAIL: malloc in new_scanner()\n");
 
   ptr->source = source;
   ptr->source_length = source_length;
@@ -29,24 +26,24 @@ scanner_t *new_scanner(char *source, int source_length) {
 }
 
 token_t *get_token(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in get_token()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in get_token()\n");
 
   return self->token;
 }
 
 token_kind_t get_kind(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in get_kind()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in get_kind()\n");
 
   token_t * token = get_token(self);
   if (token == NULL) {
-    printf("FAIL: get token in get_kind()\n");
+    THROW("FAIL: get token in get_kind()\n");
     exit(EXIT_FAILURE);
   }
   return token->kind;
 }
 
 bool scan_next(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in scan_next()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in scan_next()\n");
 
   if (get_kind(self) == T_EOF) {
     return true;
@@ -55,7 +52,7 @@ bool scan_next(scanner_t *self) {
 }
 
 bool expect_token(scanner_t *self, token_kind_t kind) {
-  if (self == NULL) { printf("FAIL: null argument in expect_token()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in expect_token()\n");
 
   if (get_kind(self) != kind) {
     printf("SyntaxError: unexpected token\n");
@@ -65,7 +62,7 @@ bool expect_token(scanner_t *self, token_kind_t kind) {
 }
 
 bool scan_next_with(scanner_t *self, token_kind_t kind) {
-  if (self == NULL) { printf("FAIL: null argument in scan_next_with()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in scan_next_with()\n");
 
   if (!expect_token(self, kind)) {
     return false;
@@ -75,7 +72,7 @@ bool scan_next_with(scanner_t *self, token_kind_t kind) {
 }
 
 static bool scan_token(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in scan_token()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in scan_token()\n");
 
   char ch;
 
@@ -128,7 +125,7 @@ static bool scan_token(scanner_t *self) {
 }
 
 static bool scan_word(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in scan_word()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("THROW: null argument in scan_word()\n");
 
   char ch;
   int length;
@@ -196,17 +193,14 @@ static bool scan_word(scanner_t *self) {
 // utility
 
 static char get_char(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in get_char()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in get_char()\n");
 
-  if (is_eof(self)) {
-    printf("FAIL: EOF in get_char()\n");
-    exit(EXIT_FAILURE);
-  }
+  if (is_eof(self)) THROW("FAIL: EOF in get_char()\n");
   return *(self->source + self->index);
 }
 
 static bool is_eof(scanner_t *self) {
-  if (self == NULL) { printf("FAIL: null argument in is_eof()\n"); exit(EXIT_FAILURE); }
+  if (self == NULL) THROW("FAIL: null argument in is_eof()\n");
 
   return (self->index >= self->source_length);
 }
@@ -215,10 +209,7 @@ static token_t *new_token(token_kind_t kind) {
   token_t *ptr;
 
   ptr = malloc(sizeof(token_t));
-  if (ptr == NULL) {
-    printf("FAIL: malloc\n");
-    exit(EXIT_FAILURE);
-  }
+  if (ptr == NULL) THROW("FAIL: malloc\n");
 
   ptr->kind = kind;
   ptr->value_ptr = NULL;
