@@ -4,7 +4,7 @@ node_t *parse(char *input, int input_length) {
   scanner_t *s = new_scanner(input, input_length);
 
   printf("todo\n");
-  while (1) {}
+  exit(EXIT_FAILURE);
 }
 
 node_t *parse_decls(scanner_t *s) {
@@ -21,15 +21,15 @@ node_t *parse_decls(scanner_t *s) {
 // function or variable
 node_t *parse_decl(scanner_t *s) {
   printf("todo\n");
-  while (1) {}
+  exit(EXIT_FAILURE);
 }
 
 node_t *parse_statement(scanner_t *s) {
   printf("todo\n");
-  while (1) {}
+  exit(EXIT_FAILURE);
 }
 
 node_t *parse_expression(scanner_t *s) {
   printf("todo\n");
-  while (1) {}
+  exit(EXIT_FAILURE);
 }

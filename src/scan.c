@@ -12,7 +12,7 @@ scanner_t *new_scanner(char *source, int source_length) {
 
   if (ptr == NULL) {
     printf("FAIL: malloc in new_scanner()\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
 
   ptr->source = source;
@@ -34,7 +34,7 @@ token_kind_t get_kind(scanner_t *self) {
   token_t * token = get_token(self);
   if (token == NULL) {
     printf("FAIL: get token in get_kind()\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
   return token->kind;
 }
@@ -182,7 +182,7 @@ static bool scan_word(scanner_t *self) {
 static char get_char(scanner_t *self) {
   if (is_eof(self)) {
     printf("FAIL: EOF in get_char()\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
   return *(self->source + self->index);
 }
@@ -197,7 +197,7 @@ static token_t *new_token(token_kind_t kind) {
   ptr = malloc(sizeof(token_t));
   if (ptr == NULL) {
     printf("FAIL: malloc\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
 
   ptr->kind = kind;

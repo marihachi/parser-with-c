@@ -5,7 +5,7 @@ node_t *new_node(syntax_kind_t kind) {
   node = malloc(sizeof(node_t));
   if (node == NULL) {
     printf("FAIL: malloc in new_node()\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
   node->kind = kind;
   node->children = NULL;
@@ -38,7 +38,7 @@ void list_insert(node_t **list, int index, node_t *item) {
     }
     if (index > 1 || ptr == NULL) {
       printf("FAIL: index out of range in list_insert()\n");
-      while (1) {}
+      exit(EXIT_FAILURE);
     }
     item->next = ptr->next;
     ptr->next = item;
@@ -53,7 +53,7 @@ node_t *list_at(node_t **list, int index) {
   }
   if (index != 0 || ptr == NULL) {
     printf("FAIL: index out of range in list_at()\n");
-    while (1) {}
+    exit(EXIT_FAILURE);
   }
   return ptr;
 }
