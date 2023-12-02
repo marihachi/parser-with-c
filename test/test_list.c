@@ -2,10 +2,9 @@
 #include "../src/node.h"
 
 int test_list(void) {
-  node_t *list1;
-  node_t *list2;
+  node_t *list1 = NULL;
+  node_t *list2 = NULL;
 
-  list1 = NULL;
   OK(list_count(&list1) == 0);
 
   list_add(&list1, new_node(N_NUMBER_LITERAL));
