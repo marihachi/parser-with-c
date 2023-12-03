@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "list.h"
 #include "util.h"
 
 typedef enum _syntax_kind {
@@ -29,19 +30,11 @@ typedef union _syntax {
 } syntax_t;
 
 typedef struct _node {
-  struct _node *next;
-  struct _node *children;
+  list_ptr_t children;
   syntax_kind_t kind;
   syntax_t syntax;
 } node_t;
 
 node_t *new_node(syntax_kind_t kind);
-
-// node list
-void list_add(node_t **list, node_t *item);
-void list_insert(node_t **list, int index, node_t *item);
-node_t *list_at(node_t **list, int index);
-int list_count(node_t **list);
-void list_move_next(node_t **list);
 
 #endif
