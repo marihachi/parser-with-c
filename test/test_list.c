@@ -126,11 +126,17 @@ int test_list_seek_next(void) {
   value_ptr = list_at(list1, 1);
   OK(value_ptr == &value2);
 
+  value_ptr = list_get_current(list1);
+  OK(value_ptr == &value1);
+
   OK(list_count(list2) == 2);
   value_ptr = list_at(list2, 0);
   OK(value_ptr == &value1);
   value_ptr = list_at(list2, 1);
   OK(value_ptr == &value2);
+
+  value_ptr = list_get_current(list2);
+  OK(value_ptr == &value1);
 
   list_seek_next(&list2);
 
@@ -140,17 +146,15 @@ int test_list_seek_next(void) {
   value_ptr = list_at(list1, 1);
   OK(value_ptr == &value2);
 
+  value_ptr = list_get_current(list1);
+  OK(value_ptr == &value1);
+
   OK(list_count(list2) == 1);
   value_ptr = list_at(list2, 0);
   OK(value_ptr == &value2);
 
-  return TEST_PASS;
-}
-
-int test_list(void) {
-  OK(test_list_add() == TEST_PASS);
-  OK(test_list_insert() == TEST_PASS);
-  OK(test_list_seek_next() == TEST_PASS);
+  value_ptr = list_get_current(list2);
+  OK(value_ptr == &value2);
 
   return TEST_PASS;
 }

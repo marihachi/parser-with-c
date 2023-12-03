@@ -20,16 +20,14 @@ node_t *parse_decls(scanner_t *s) {
   if (s == NULL) PANIC("FAIL: null argument in parse_decls()\n");
 
   node_t *program, *decl;
-  list_ptr_t *decls;
 
   program = new_node(N_PROGRAM);
-  decls = &program->children;
 
   while (get_kind(s) != T_EOF) {
     decl = parse_decl(s);
     if (decl == NULL) break;
 
-    list_add(decls, decl);
+    list_add(&(program->children), decl);
   }
 
   return program;
@@ -61,4 +59,14 @@ node_t *parse_expression(scanner_t *s) {
   if (s == NULL) PANIC("FAIL: null argument in parse_expression()\n");
 
   PANIC("todo\n");
+}
+
+node_t *new_node(syntax_kind_t kind) {
+  node_t *node;
+  node = malloc(sizeof(node_t));
+  if (node == NULL) PANIC("FAIL: malloc in new_node()\n");
+
+  node->kind = kind;
+  node->children = NULL;
+  return node;
 }

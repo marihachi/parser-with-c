@@ -2,27 +2,19 @@
 #define _LIST_H
 
 /**
- * Usage:
+ * Create list:
  * ```c
- * // create list
  * list_ptr_t list = NULL;
- *
- * // add item
- * list_add(&list, NULL);
- *
- * // insert item
- * list_insert(&list, 0, NULL);
- *
- * // get list length
- * length = list_count(list);
- *
- * // get item
- * item = list_at(list, 0);
- *
- * // seek list
+ * ```
+ * 
+ * Seek list:
+ * ```c
+ * // list_ptr_t list;
+ * // int *item;
+ * 
  * while (list != NULL) {
+ *   item = list_get_current(list);
  *   // Do anything here
- *   // *list->item
  *   list_seek_next(&list);
  * }
  * ```
@@ -35,10 +27,40 @@ typedef struct _list_cell {
 
 typedef list_cell_t * list_ptr_t;
 
+/**
+ * Add item
+ * This function changes the list.
+*/
 void list_add(list_ptr_t *list, void *item);
+
+/**
+ * Insert item
+ * This function changes the list.
+*/
 void list_insert(list_ptr_t *list, int index, void *item);
+
+/**
+ * Seek next position
+ * This function changes the list.
+*/
 void list_seek_next(list_ptr_t *list);
+
+/**
+ * Get item
+ * This function do not changes the list.
+*/
+void *list_get_current(list_ptr_t list);
+
+/**
+ * Get item
+ * This function do not changes the list.
+*/
 void *list_at(list_ptr_t list, int index);
+
+/**
+ * Get length of the list
+ * This function do not changes the list.
+*/
 int list_count(list_ptr_t list);
 
 #endif

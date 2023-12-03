@@ -5,8 +5,9 @@
 #ifndef TEST_MODE
 
 int main(void) {
+  list_ptr_t iter;
   node_t *program;
-  list_ptr_t decls;
+  node_t *decl;
 
   char *source = "foo";
 
@@ -14,13 +15,14 @@ int main(void) {
   if (program == NULL) return 0;
 
   printf("program.kind %d\n", program->kind);
-  decls = program->children;
 
-  while (decls != NULL) {
-    if (decls->item != NULL) {
-      printf("decl.kind %d\n", ((node_t *)decls->item)->kind);
+  iter = program->children;
+  while (iter != NULL) {
+    decl = list_get_current(iter);
+    if (decl != NULL) {
+      printf("decl.kind %d\n", decl->kind);
     }
-    list_seek_next(&decls);
+    list_seek_next(&iter);
   }
 
   return 0;

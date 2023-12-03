@@ -2,17 +2,7 @@
 #include "list.h"
 #include "util.h"
 
-list_cell_t *new_list_cell(void *item) {
-  list_cell_t *cell;
-
-  cell = malloc(sizeof(list_cell_t));
-  if (cell == NULL) PANIC("FAIL: malloc in new_list_cell()\n");
-
-  cell->item = item;
-  cell->next = NULL;
-
-  return cell;
-}
+static list_cell_t *new_list_cell(void *item);
 
 void list_add(list_ptr_t *list, void *item) {
   if (list == NULL) PANIC("FAIL: null argument in list_add()\n");
@@ -40,7 +30,7 @@ void list_insert(list_ptr_t *list, int index, void *item) {
   } else {
     list_ptr_t iter = *list;
 
-    // get cell at index-1
+    // get previous cell at target position
     while (iter != NULL && index > 1) {
       index--;
       list_seek_next(&iter);
@@ -57,19 +47,27 @@ void list_insert(list_ptr_t *list, int index, void *item) {
 void list_seek_next(list_ptr_t *list) {
   if (list == NULL) PANIC("FAIL: null argument in list_seek_next()\n");
 
+  // set the referenced cell in the list to the next cell.
   if (*list != NULL) {
     *list = (*list)->next;
   }
 }
 
+void *list_get_current(list_ptr_t list) {
+  if (list == NULL) PANIC("FAIL: null reference in list_get_current()\n");
+
+  return list->item;
+}
+
 void *list_at(list_ptr_t list, int index) {
+  // get cell at target position
   while (list != NULL && index > 0) {
     index--;
     list_seek_next(&list);
   }
-  if (index != 0 || list == NULL) PANIC("FAIL: index out of range in list_at()\n");
+  if (index != 0) PANIC("FAIL: index out of range in list_at()\n");
 
-  return list->item;
+  return list_get_current(list);
 }
 
 int list_count(list_ptr_t list) {
@@ -81,4 +79,16 @@ int list_count(list_ptr_t list) {
   }
 
   return i;
+}
+
+static list_cell_t *new_list_cell(void *item) {
+  list_cell_t *cell;
+
+  cell = malloc(sizeof(list_cell_t));
+  if (cell == NULL) PANIC("FAIL: malloc in new_list_cell()\n");
+
+  cell->item = item;
+  cell->next = NULL;
+
+  return cell;
 }
