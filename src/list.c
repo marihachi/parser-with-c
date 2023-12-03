@@ -36,15 +36,6 @@ void list_insert(list_ptr_t *list, int index, void *item) {
   list_cell_t *next, *cell;
 
   if (index == 0) {
-    // if (*list == NULL) {
-    //   cell = new_list_cell(item);
-    //   *list = cell;
-    // } else {
-    //   cell = new_list_cell(item);
-    //   next = *list;
-    //   *list = cell;
-    //   (*list)->next = next;
-    // }
     cell = new_list_cell(item);
     next = *list;
     *list = cell;
