@@ -1,4 +1,6 @@
+#include <stdlib.h>
 #include "list.h"
+#include "util.h"
 
 list_cell_t *new_list_cell(void *item) {
   list_cell_t *cell;

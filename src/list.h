@@ -28,12 +28,6 @@
  * ```
 */
 
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include "util.h"
-
 typedef struct _list_cell {
   struct _list_cell *next;
   void *item;

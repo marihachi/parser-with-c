@@ -1,14 +1,8 @@
 #ifndef _PARSE_H
 #define _PARSE_H
 
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
 #include "node.h"
 #include "scan.h"
-#include "util.h"
-#include "list.h"
 
 node_t *parse(char *input, int input_length);
 node_t *parse_decls(scanner_t *s);

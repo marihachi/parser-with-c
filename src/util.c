@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "util.h"
 
 void mem_dump(void *address) {

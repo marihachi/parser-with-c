@@ -1,4 +1,7 @@
+#include <stdlib.h>
+#include <string.h>
 #include "scan.h"
+#include "util.h"
 
 static bool scan_token(scanner_t *self);
 static bool scan_word(scanner_t *self);

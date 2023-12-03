@@ -1,4 +1,6 @@
+#include <stdlib.h>
 #include "node.h"
+#include "util.h"
 
 node_t *new_node(syntax_kind_t kind) {
   node_t *node;

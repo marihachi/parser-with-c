@@ -1,12 +1,8 @@
 #ifndef _NODE_H
 #define _NODE_H
 
-#include <stdlib.h>
 #include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
 #include "list.h"
-#include "util.h"
 
 typedef enum _syntax_kind {
   N_PROGRAM,

@@ -1,12 +1,8 @@
 #ifndef _SCAN_H
 #define _SCAN_H
 
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
-#include "util.h"
 
 typedef enum _token_kind {
   // Special

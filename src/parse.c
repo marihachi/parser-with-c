@@ -1,4 +1,7 @@
+#include <stdlib.h>
 #include "parse.h"
+#include "util.h"
+#include "list.h"
 
 node_t *parse(char *input, int input_length) {
   if (input == NULL) PANIC("FAIL: null argument in parse()\n");
