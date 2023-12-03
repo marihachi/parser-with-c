@@ -1,40 +1,26 @@
 #include <stdio.h>
-#include "node.h"
-#include "scan.h"
+#include "parse.h"
+#include "list.h"
 
 #ifndef TEST_MODE
 
 int main(void) {
-  node_t *program, *node, *children;
+  node_t *program;
+  list_ptr_t decls;
 
-  // root
-  program = new_node(N_PROGRAM);
-  children = program->children;
+  char *source = "foo";
 
-  // child 0
-  node = new_node(N_NUMBER_LITERAL);
-  node->syntax.number_literal.value = 1;
-  list_add(&children, node);
+  program = parse(source, 3);
+  if (program == NULL) return 0;
 
-  // child 1
-  node = new_node(N_NUMBER_LITERAL);
-  node->syntax.number_literal.value = 2;
-  list_add(&children, node);
+  printf("program.kind %d\n", program->kind);
+  decls = program->children;
 
-  // print root
-
-  printf("kind: %d\n", program->kind);
-  printf("children: %d\n", list_count(&children));
-
-  // iterate children
-  node = children;
-  while (node != NULL) {
-    // print child
-    printf("  child kind: %d\n", node->kind);
-    if (node->kind == N_NUMBER_LITERAL) {
-      printf("  value: %d\n", node->syntax.number_literal.value);
+  while (decls != NULL) {
+    if (decls->item != NULL) {
+      printf("decl.kind %d\n", ((node_t *)decls->item)->kind);
     }
-    list_move_next(&node);
+    list_move_next(&decls);
   }
 
   return 0;
