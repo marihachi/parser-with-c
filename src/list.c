@@ -15,13 +15,14 @@ list_cell_t *new_list_cell(void *item) {
 void list_add(list_ptr_t *list, void *item) {
   if (list == NULL) THROW("FAIL: null argument in list_add()\n");
 
-  list_ptr_t it = *list;
-  list_cell_t *next, *cell;
+  list_ptr_t it;
+  list_cell_t *cell;
 
   if (*list == NULL) {
     cell = new_list_cell(item);
     *list = cell;
   } else {
+    it = *list;
     while (it->next != NULL) { list_move_next(&it); }
 
     cell = new_list_cell(item);
@@ -32,7 +33,7 @@ void list_add(list_ptr_t *list, void *item) {
 void list_insert(list_ptr_t *list, int index, void *item) {
   if (list == NULL) THROW("FAIL: null argument in list_insert()\n");
 
-  list_ptr_t it = *list;
+  list_ptr_t it;
   list_cell_t *next, *cell;
 
   if (index == 0) {
@@ -41,6 +42,8 @@ void list_insert(list_ptr_t *list, int index, void *item) {
     *list = cell;
     cell->next = next;
   } else {
+    it = *list;
+
     // get cell at index-1
     while (it != NULL && index > 1) {
       index--;
@@ -55,29 +58,22 @@ void list_insert(list_ptr_t *list, int index, void *item) {
   }
 }
 
-void *list_at(list_ptr_t *list, int index) {
-  if (list == NULL) THROW("FAIL: null argument in list_at()\n");
-
-  list_ptr_t it = *list;
-
-  while (it != NULL && index > 0) {
+void *list_at(list_ptr_t list, int index) {
+  while (list != NULL && index > 0) {
     index--;
-    list_move_next(&it);
+    list_move_next(&list);
   }
-  if (index != 0 || it == NULL) THROW("FAIL: index out of range in list_at()\n");
+  if (index != 0 || list == NULL) THROW("FAIL: index out of range in list_at()\n");
 
-  return it->item;
+  return list->item;
 }
 
-int list_count(list_ptr_t *list) {
-  if (list == NULL) THROW("FAIL: null argument in list_count()\n");
-
+int list_count(list_ptr_t list) {
   int i = 0;
-  list_ptr_t it = *list;
 
-  while (it != NULL) {
+  while (list != NULL) {
     i++;
-    list_move_next(&it);
+    list_move_next(&list);
   }
 
   return i;
