@@ -59,11 +59,11 @@ typedef struct _token {
 } token_t;
 
 typedef struct _scanner {
-  char *source;
-  int source_length;
   int index;
   int line;
   int column;
+  int source_length;
+  char *source;
   token_t *token;
 } scanner_t;
 
