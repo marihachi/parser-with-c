@@ -4,7 +4,7 @@ list_cell_t *new_list_cell(void *item) {
   list_cell_t *cell;
 
   cell = malloc(sizeof(list_cell_t));
-  if (cell == NULL) THROW("FAIL: malloc in new_list_cell()\n");
+  if (cell == NULL) PANIC("FAIL: malloc in new_list_cell()\n");
 
   cell->item = item;
   cell->next = NULL;
@@ -13,28 +13,22 @@ list_cell_t *new_list_cell(void *item) {
 }
 
 void list_add(list_ptr_t *list, void *item) {
-  if (list == NULL) THROW("FAIL: null argument in list_add()\n");
-
-  list_ptr_t it;
-  list_cell_t *cell;
+  if (list == NULL) PANIC("FAIL: null argument in list_add()\n");
 
   if (*list == NULL) {
-    cell = new_list_cell(item);
-    *list = cell;
+    *list = new_list_cell(item);
   } else {
-    it = *list;
-    while (it->next != NULL) { list_seek_next(&it); }
+    list_ptr_t iter = *list;
 
-    cell = new_list_cell(item);
-    it->next = cell;
+    while (iter->next != NULL) { list_seek_next(&iter); }
+    iter->next = new_list_cell(item);
   }
 }
 
 void list_insert(list_ptr_t *list, int index, void *item) {
-  if (list == NULL) THROW("FAIL: null argument in list_insert()\n");
+  if (list == NULL) PANIC("FAIL: null argument in list_insert()\n");
 
-  list_ptr_t it;
-  list_cell_t *next, *cell;
+  list_cell_t *cell, *next;
 
   if (index == 0) {
     cell = new_list_cell(item);
@@ -42,18 +36,18 @@ void list_insert(list_ptr_t *list, int index, void *item) {
     *list = cell;
     cell->next = next;
   } else {
-    it = *list;
+    list_ptr_t iter = *list;
 
     // get cell at index-1
-    while (it != NULL && index > 1) {
+    while (iter != NULL && index > 1) {
       index--;
-      list_seek_next(&it);
+      list_seek_next(&iter);
     }
-    if (index > 1 || it == NULL) THROW("FAIL: index out of range in list_insert()\n");
+    if (index > 1 || iter == NULL) PANIC("FAIL: index out of range in list_insert()\n");
 
     cell = new_list_cell(item);
-    next = it->next;
-    it->next = cell;
+    next = iter->next;
+    iter->next = cell;
     cell->next = next;
   }
 }
@@ -63,7 +57,7 @@ void *list_at(list_ptr_t list, int index) {
     index--;
     list_seek_next(&list);
   }
-  if (index != 0 || list == NULL) THROW("FAIL: index out of range in list_at()\n");
+  if (index != 0 || list == NULL) PANIC("FAIL: index out of range in list_at()\n");
 
   return list->item;
 }
@@ -80,7 +74,7 @@ int list_count(list_ptr_t list) {
 }
 
 void list_seek_next(list_ptr_t *list) {
-  if (list == NULL) THROW("FAIL: null argument in list_seek_next()\n");
+  if (list == NULL) PANIC("FAIL: null argument in list_seek_next()\n");
 
   if (*list != NULL) {
     *list = (*list)->next;
