@@ -106,7 +106,7 @@ int test_list_insert(void) {
   return TEST_PASS;
 }
 
-int test_list_seek(void) {
+int test_list_seek_next(void) {
   list_ptr_t list1 = NULL;
   list_ptr_t list2 = NULL;
   int *value_ptr;
@@ -131,7 +131,7 @@ int test_list_seek(void) {
   value_ptr = list_at(list2, 1);
   OK(value_ptr == &value2);
 
-  list_move_next(&list2);
+  list_seek_next(&list2);
 
   OK(list_count(list1) == 2);
   value_ptr = list_at(list1, 0);
@@ -149,7 +149,7 @@ int test_list_seek(void) {
 int test_list(void) {
   OK(test_list_add() == TEST_PASS);
   OK(test_list_insert() == TEST_PASS);
-  OK(test_list_seek() == TEST_PASS);
+  OK(test_list_seek_next() == TEST_PASS);
 
   return TEST_PASS;
 }

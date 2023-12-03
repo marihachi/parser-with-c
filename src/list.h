@@ -18,6 +18,6 @@ void list_add(list_ptr_t *list, void *item);
 void list_insert(list_ptr_t *list, int index, void *item);
 void *list_at(list_ptr_t list, int index);
 int list_count(list_ptr_t list);
-void list_move_next(list_ptr_t *list);
+void list_seek_next(list_ptr_t *list);
 
 #endif

@@ -20,7 +20,7 @@ int main(void) {
     if (decls->item != NULL) {
       printf("decl.kind %d\n", ((node_t *)decls->item)->kind);
     }
-    list_move_next(&decls);
+    list_seek_next(&decls);
   }
 
   return 0;
