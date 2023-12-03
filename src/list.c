@@ -52,6 +52,14 @@ void list_insert(list_ptr_t *list, int index, void *item) {
   }
 }
 
+void list_seek_next(list_ptr_t *list) {
+  if (list == NULL) PANIC("FAIL: null argument in list_seek_next()\n");
+
+  if (*list != NULL) {
+    *list = (*list)->next;
+  }
+}
+
 void *list_at(list_ptr_t list, int index) {
   while (list != NULL && index > 0) {
     index--;
@@ -71,12 +79,4 @@ int list_count(list_ptr_t list) {
   }
 
   return i;
-}
-
-void list_seek_next(list_ptr_t *list) {
-  if (list == NULL) PANIC("FAIL: null argument in list_seek_next()\n");
-
-  if (*list != NULL) {
-    *list = (*list)->next;
-  }
 }
