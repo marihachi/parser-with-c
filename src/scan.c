@@ -49,6 +49,7 @@ bool scan_next(scanner_t *self) {
   if (get_kind(self) == T_EOF) {
     return true;
   }
+
   return scan_token(self);
 }
 
@@ -59,6 +60,7 @@ bool expect_token(scanner_t *self, token_kind_t kind) {
     printf("SyntaxError: unexpected token\n");
     return false;
   }
+
   return true;
 }
 
@@ -69,6 +71,7 @@ bool scan_next_with(scanner_t *self, token_kind_t kind) {
     return false;
   }
   scan_next(self);
+
   return true;
 }
 
@@ -122,6 +125,7 @@ static bool scan_token(scanner_t *self) {
   }
 
   printf("SyntaxError: unexpected token\n");
+
   return false;
 }
 
@@ -197,6 +201,7 @@ static char get_char(scanner_t *self) {
   if (self == NULL) PANIC("FAIL: null argument in get_char()\n");
 
   if (is_eof(self)) PANIC("FAIL: EOF in get_char()\n");
+
   return *(self->source + self->index);
 }
 

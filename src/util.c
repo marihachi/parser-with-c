@@ -7,9 +7,9 @@ void mem_dump(void *address) {
   }
   char *ptr = address;
   for (int y = 0; y < 4; y++) {
-    printf("%18p: ", (ptr + (y * 16)));
+    printf("0x%016lX ", (unsigned long)(ptr + (y * 16)));
     for (int x = 0; x < 16; x++) {
-      printf("%02X ", (unsigned char)(*(ptr + (y * 16 + x))));
+      printf(" %02X", (unsigned char)(*(ptr + (y * 16 + x))));
     }
     printf("\n");
   }

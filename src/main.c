@@ -7,7 +7,7 @@
 int main(void) {
   list_ptr_t iter;
   node_t *program;
-  node_t *decl;
+  node_t *node;
 
   char *source = "foo";
 
@@ -18,9 +18,9 @@ int main(void) {
 
   iter = program->children;
   while (iter != NULL) {
-    decl = list_get_current(iter);
-    if (decl != NULL) {
-      printf("decl.kind %d\n", decl->kind);
+    node = list_get_current(iter);
+    if (node != NULL) {
+      printf("node.kind %d\n", node->kind);
     }
     list_seek_next(&iter);
   }

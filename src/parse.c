@@ -6,10 +6,7 @@
 node_t *parse(char *input, int input_length) {
   if (input == NULL) PANIC("FAIL: null argument in parse()\n");
 
-  char *ptr;
   scanner_t *s;
-
-  printf("parse\n");
 
   s = new_scanner(input, input_length);
 
@@ -37,10 +34,7 @@ node_t *parse_decls(scanner_t *s) {
 node_t *parse_decl(scanner_t *s) {
   if (s == NULL) PANIC("FAIL: null argument in parse_decl()\n");
 
-  printf("parse_decl\n");
-
   if (get_kind(s) == T_EOF) {
-    printf("EOF\n");
     return NULL;
   }
 
@@ -63,10 +57,12 @@ node_t *parse_expression(scanner_t *s) {
 
 node_t *new_node(syntax_kind_t kind) {
   node_t *node;
+
   node = malloc(sizeof(node_t));
   if (node == NULL) PANIC("FAIL: malloc in new_node()\n");
 
   node->kind = kind;
   node->children = NULL;
+
   return node;
 }
