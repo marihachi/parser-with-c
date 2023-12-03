@@ -80,12 +80,23 @@ static bool scan_token(scanner_t *self) {
 
   char ch;
 
+  printf("scan_token\n");
+
   if (self->index >= self->source_length) {
+    printf("EOF\n");
     self->token = new_token(T_EOF);
     return true;
   }
 
-  ch = get_char(self);
+  while (1) {
+    printf("get char\n");
+    ch = get_char(self);
+    if (ch == ' ' || ch == '\r' || ch == '\n') {
+      self->index++;
+      continue;
+    }
+    break;
+  }
 
   switch (ch) {
     case '(': {
@@ -137,6 +148,8 @@ static bool scan_word(scanner_t *self) {
   uint8_t buf[32];
   bool is_number;
 
+  printf("scan_word\n");
+
   length = 0;
   while (!is_eof(self) && length < 32) {
     ch = get_char(self);
@@ -165,10 +178,11 @@ static bool scan_word(scanner_t *self) {
     self->token = new_token(T_NUMBER_LITERAL);
     self->token->value_length = length;
     // copy value
-    self->token->value_ptr = malloc(length);
+    self->token->value_ptr = malloc(length + 1);
     for (int i = 0; i < length; i++) {
       *(self->token->value_ptr + i) = buf[i];
     }
+    *(self->token->value_ptr + length) = '\0';
     return true;
   }
 
@@ -189,8 +203,10 @@ static bool scan_word(scanner_t *self) {
   // identifier token
   self->token = new_token(T_IDENTIFIER);
   self->token->value_length = length;
-  self->token->value_ptr = malloc(length);
+  self->token->value_ptr = malloc(length + 1);
   memcpy(self->token->value_ptr, buf, length);
+  *(self->token->value_ptr + length) = '\0';
+  printf("%s\n", self->token->value_ptr);
 
   return true;
 }

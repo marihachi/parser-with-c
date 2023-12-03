@@ -9,10 +9,10 @@ int main(void) {
   node_t *program;
   node_t *node;
 
-  char *source = "foo";
+  char *source = "foo  bar(){}";
 
   program = parse(source, 3);
-  if (program == NULL) return 0;
+  if (program == NULL) return 1;
 
   printf("program.kind %d\n", program->kind);
 
