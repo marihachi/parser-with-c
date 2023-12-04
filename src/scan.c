@@ -80,12 +80,11 @@ static bool scan_token(scanner_t *self) {
 
   char ch;
 
-  if (self->index >= self->source_length) {
-    self->token = new_token(T_EOF);
-    return true;
-  }
-
   while (1) {
+    if (self->index >= self->source_length) {
+      self->token = new_token(T_EOF);
+      return true;
+    }
     ch = get_char(self);
     if (ch == ' ' || ch == '\r' || ch == '\n') {
       self->index++;
@@ -122,6 +121,11 @@ static bool scan_token(scanner_t *self) {
     }
     case ']': {
       self->token = new_token(T_CLOSE_BRACKET);
+      self->index++;
+      return true;
+    }
+    case ';': {
+      self->token = new_token(T_SEMI);
       self->index++;
       return true;
     }

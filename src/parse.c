@@ -55,8 +55,20 @@ bool parse_decl(scanner_t *s, node_t **result) {
   token = get_token(s);
   if (!scan_next(s)) return false;
 
+  if (get_kind(s) == T_SEMI) {
+    scan_next(s);
+    *result = new_node(N_VAR_DECL);
+    return true;
+  }
+
   if (!scan_next_with(s, T_OPEN_PAREN)) return false;
   if (!scan_next_with(s, T_CLOSE_PAREN)) return false;
+
+  if (get_kind(s) == T_SEMI) {
+    scan_next(s);
+    *result = new_node(N_FUNC_DECL);
+    return true;
+  }
 
   if (!scan_next_with(s, T_OPEN_BRACE)) return false;
   if (!scan_next_with(s, T_CLOSE_BRACE)) return false;

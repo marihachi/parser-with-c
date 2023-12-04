@@ -10,7 +10,7 @@ int main(void) {
   node_t *program;
   node_t *node;
 
-  char *source = "foo bar(){}";
+  char *source = "int a; int f(); int f() { }";
 
   program = parse(source, strlen(source));
   if (program == NULL) return 1;
