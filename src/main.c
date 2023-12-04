@@ -10,7 +10,7 @@ int main(void) {
   node_t *program;
   node_t *node;
 
-  char *source = "int a; int f(); int f() { }";
+  char *source = "int abc; int main(); int main() { }";
 
   program = parse(source, strlen(source));
   if (program == NULL) return 1;
@@ -22,6 +22,9 @@ int main(void) {
     node = list_get_current(iter);
     if (node != NULL) {
       printf("node.kind %d\n", node->kind);
+      if (node->name_ptr != NULL) {
+        printf("node.name %s\n", node->name_ptr);
+      }
     }
     list_seek_next(&iter);
   }

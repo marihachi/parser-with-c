@@ -43,21 +43,29 @@ bool parse_decls(scanner_t *s, node_t **result) {
 // function or variable
 bool parse_decl(scanner_t *s, node_t **result) {
   token_t *token;
+  char *name_ptr, *ty_ptr;
+  int name_length, ty_length;
 
   if (s == NULL) PANIC("FAIL: null argument in parse_decl()\n");
   *result = NULL;
 
   if (!expect_token(s, T_IDENTIFIER)) return false;
   token = get_token(s);
+  ty_ptr = token->value_ptr;
+  ty_length = token->value_length;
   if (!scan_next(s)) return false;
 
   if (!expect_token(s, T_IDENTIFIER)) return false;
   token = get_token(s);
+  name_ptr = token->value_ptr;
+  name_length = token->value_length;
   if (!scan_next(s)) return false;
 
   if (get_kind(s) == T_SEMI) {
     scan_next(s);
     *result = new_node(N_VAR_DECL);
+    (*result)->name_ptr = name_ptr;
+    (*result)->name_length = name_length;
     return true;
   }
 
@@ -67,6 +75,8 @@ bool parse_decl(scanner_t *s, node_t **result) {
   if (get_kind(s) == T_SEMI) {
     scan_next(s);
     *result = new_node(N_FUNC_DECL);
+    (*result)->name_ptr = name_ptr;
+    (*result)->name_length = name_length;
     return true;
   }
 
@@ -74,6 +84,8 @@ bool parse_decl(scanner_t *s, node_t **result) {
   if (!scan_next_with(s, T_CLOSE_BRACE)) return false;
 
   *result = new_node(N_FUNC_DECL);
+  (*result)->name_ptr = name_ptr;
+  (*result)->name_length = name_length;
   return true;
 }
 

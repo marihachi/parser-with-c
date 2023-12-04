@@ -51,7 +51,7 @@ typedef enum token_kind {
 typedef struct token {
   token_kind_t kind;
   int value_length;
-  uint8_t *value_ptr;
+  char *value_ptr;
 } token_t;
 
 typedef struct scanner {

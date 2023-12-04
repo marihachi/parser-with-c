@@ -13,23 +13,21 @@ typedef enum syntax_kind {
   N_VAR_DECL,
 } syntax_kind_t;
 
-typedef union syntax {
-  struct { } program;
-
-  struct {
-    int value;
-  } number_literal;
-
-  struct {
-    int name_length;
-    uint8_t *name_ptr;
-  } identifier;
-} syntax_t;
-
 typedef struct node {
   list_ptr_t children;
   syntax_kind_t kind;
-  syntax_t syntax;
+  int name_length;
+  char *name_ptr;
+
+  // additional info
+  union {
+    struct {
+      int string_length;
+      char *string_ptr;
+    } string_value;
+
+    int number_value;
+  };
 } node_t;
 
 node_t *parse(char *input, int input_length);
