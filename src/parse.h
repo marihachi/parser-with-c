@@ -5,7 +5,7 @@
 #include "list.h"
 #include "scan.h"
 
-typedef enum _syntax_kind {
+typedef enum syntax_kind {
   N_PROGRAM,
   N_NUMBER_LITERAL,
   N_IDENTIFIER,
@@ -13,7 +13,7 @@ typedef enum _syntax_kind {
   N_VAR_DECL,
 } syntax_kind_t;
 
-typedef union _syntax {
+typedef union syntax {
   struct { } program;
 
   struct {
@@ -26,18 +26,12 @@ typedef union _syntax {
   } identifier;
 } syntax_t;
 
-typedef struct _node {
+typedef struct node {
   list_ptr_t children;
   syntax_kind_t kind;
   syntax_t syntax;
 } node_t;
 
 node_t *parse(char *input, int input_length);
-node_t *parse_decls(scanner_t *s, bool *error);
-node_t *parse_decl(scanner_t *s, bool *error);
-node_t *parse_statement(scanner_t *s, bool *error);
-node_t *parse_expression(scanner_t *s, bool *error);
-
-node_t *new_node(syntax_kind_t kind);
 
 #endif

@@ -4,6 +4,12 @@
 #include "util.h"
 #include "list.h"
 
+bool parse_decls(scanner_t *s, node_t **result);
+bool parse_decl(scanner_t *s, node_t **result);
+bool parse_statement(scanner_t *s, node_t **result);
+bool parse_expression(scanner_t *s, node_t **result);
+node_t *new_node(syntax_kind_t kind);
+
 node_t *parse(char *input, int input_length) {
   if (input == NULL) PANIC("FAIL: null argument in parse()\n");
 
@@ -11,91 +17,64 @@ node_t *parse(char *input, int input_length) {
 
   s = new_scanner(input, input_length);
 
-  bool error = false;
-  node_t *node = parse_decls(s, &error);
-  if (error) return NULL;
+  node_t *node = NULL;
+  if (!parse_decls(s, &node)) return NULL;
 
   return node;
 }
 
-node_t *parse_decls(scanner_t *s, bool *error) {
-  if (s == NULL) PANIC("FAIL: null argument in parse_decls()\n");
-
+bool parse_decls(scanner_t *s, node_t **result) {
   node_t *program, *decl;
+
+  if (s == NULL) PANIC("FAIL: null argument in parse_decls()\n");
+  *result = NULL;
 
   program = new_node(N_PROGRAM);
 
   while (get_kind(s) != T_EOF) {
-    decl = parse_decl(s, error);
-    if (*error) return NULL;
-
+    if (!parse_decl(s, &decl)) return false;
     list_add(&(program->children), decl);
   }
 
-  return program;
+  *result = program;
+  return true;
 }
 
 // function or variable
-node_t *parse_decl(scanner_t *s, bool *error) {
-  if (s == NULL) PANIC("FAIL: null argument in parse_decl()\n");
-
+bool parse_decl(scanner_t *s, node_t **result) {
   token_t *token;
 
-  printf("T_IDENTIFIER\n");
-  if (!expect_token(s, T_IDENTIFIER)) {
-    *error = true;
-    return NULL;
-  }
+  if (s == NULL) PANIC("FAIL: null argument in parse_decl()\n");
+  *result = NULL;
+
+  if (!expect_token(s, T_IDENTIFIER)) return false;
   token = get_token(s);
-  if (!scan_next(s)) {
-    *error = true;
-    return NULL;
-  }
+  if (!scan_next(s)) return false;
 
-  printf("T_IDENTIFIER\n");
-  if (!expect_token(s, T_IDENTIFIER)) {
-    *error = true;
-    return NULL;
-  }
+  if (!expect_token(s, T_IDENTIFIER)) return false;
   token = get_token(s);
-  if (!scan_next(s)) {
-    *error = true;
-    return NULL;
-  }
+  if (!scan_next(s)) return false;
 
-  printf("T_OPEN_PAREN\n");
-  if (!scan_next_with(s, T_OPEN_PAREN)) {
-    *error = true;
-    return NULL;
-  }
-  printf("T_CLOSE_PAREN\n");
-  if (!scan_next_with(s, T_CLOSE_PAREN)) {
-    *error = true;
-    return NULL;
-  }
+  if (!scan_next_with(s, T_OPEN_PAREN)) return false;
+  if (!scan_next_with(s, T_CLOSE_PAREN)) return false;
 
-  printf("T_OPEN_BRACE\n");
-  if (!scan_next_with(s, T_OPEN_BRACE)) {
-    *error = true;
-    return NULL;
-  }
-  printf("T_CLOSE_BRACE\n");
-  if (!scan_next_with(s, T_CLOSE_BRACE)) {
-    *error = true;
-    return NULL;
-  }
+  if (!scan_next_with(s, T_OPEN_BRACE)) return false;
+  if (!scan_next_with(s, T_CLOSE_BRACE)) return false;
 
-  return new_node(N_FUNC_DECL);
+  *result = new_node(N_FUNC_DECL);
+  return true;
 }
 
-node_t *parse_statement(scanner_t *s, bool *error) {
+bool parse_statement(scanner_t *s, node_t **result) {
   if (s == NULL) PANIC("FAIL: null argument in parse_statement()\n");
+  *result = NULL;
 
   PANIC("todo\n");
 }
 
-node_t *parse_expression(scanner_t *s, bool *error) {
+bool parse_expression(scanner_t *s, node_t **result) {
   if (s == NULL) PANIC("FAIL: null argument in parse_expression()\n");
+  *result = NULL;
 
   PANIC("todo\n");
 }

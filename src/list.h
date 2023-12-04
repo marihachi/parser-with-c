@@ -20,8 +20,8 @@
  * ```
 */
 
-typedef struct _list_cell {
-  struct _list_cell *next;
+typedef struct list_cell {
+  struct list_cell *next;
   void *item;
 } list_cell_t;
 

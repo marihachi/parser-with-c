@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef enum _token_kind {
+typedef enum token_kind {
   // Special
   T_EOF = 0x00,
   T_IDENTIFIER,
@@ -48,13 +48,13 @@ typedef enum _token_kind {
   T_IF = 0x80,
 } token_kind_t;
 
-typedef struct _token {
+typedef struct token {
   token_kind_t kind;
   int value_length;
   uint8_t *value_ptr;
 } token_t;
 
-typedef struct _scanner {
+typedef struct scanner {
   int index;
   int line;
   int column;

@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #include "parse.h"
 #include "list.h"
@@ -9,9 +10,9 @@ int main(void) {
   node_t *program;
   node_t *node;
 
-  char *source = "foo  bar(){}";
+  char *source = "foo bar(){}";
 
-  program = parse(source, 3);
+  program = parse(source, strlen(source));
   if (program == NULL) return 1;
 
   printf("program.kind %d\n", program->kind);
