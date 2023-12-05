@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "list.h"
-#include "scan.h"
+#include "scanner.h"
 
 typedef enum syntax_kind {
   N_PROGRAM,

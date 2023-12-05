@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "scan.h"
+#include "scanner.h"
 #include "util.h"
 
 static bool read_word(scanner_t *self);
