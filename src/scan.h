@@ -65,12 +65,12 @@ typedef struct scanner {
 } scanner_t;
 
 scanner_t *new_scanner(char *source, int source_length);
-token_t *get_token(scanner_t *self);
-token_kind_t get_kind(scanner_t *self);
-bool scan_token(scanner_t *self);
-bool scan_next(scanner_t *self);
-bool expect_token(scanner_t *self, token_kind_t kind);
-bool scan_next_with(scanner_t *self, token_kind_t kind);
-char *get_token_name(token_kind_t kind);
+token_t *scanner_get_token(scanner_t *self);
+token_kind_t scanner_get_kind(scanner_t *self);
+bool scanner_read(scanner_t *self);
+bool scanner_next(scanner_t *self);
+bool scanner_expect(scanner_t *self, token_kind_t kind);
+bool scanner_next_with(scanner_t *self, token_kind_t kind);
+char *scanner_get_token_name(token_kind_t kind);
 
 #endif

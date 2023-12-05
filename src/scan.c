@@ -3,7 +3,7 @@
 #include "scan.h"
 #include "util.h"
 
-static bool scan_word(scanner_t *self);
+static bool read_word(scanner_t *self);
 static char get_char(scanner_t *self);
 static bool is_eof(scanner_t *self);
 static token_t *new_token(token_kind_t kind);
@@ -26,55 +26,55 @@ scanner_t *new_scanner(char *source, int source_length) {
   return ptr;
 }
 
-token_t *get_token(scanner_t *self) {
-  if (self == NULL) PANIC("FAIL: null argument in get_token()\n");
+token_t *scanner_get_token(scanner_t *self) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_get_token()\n");
 
   return self->token;
 }
 
-token_kind_t get_kind(scanner_t *self) {
-  if (self == NULL) PANIC("FAIL: null argument in get_kind()\n");
+token_kind_t scanner_get_kind(scanner_t *self) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_get_kind()\n");
 
-  token_t *token = get_token(self);
-  if (token == NULL) PANIC("FAIL: get token in get_kind()\n");
+  token_t *token = scanner_get_token(self);
+  if (token == NULL) PANIC("FAIL: get token in scanner_get_kind()\n");
 
   return token->kind;
 }
 
-bool scan_next(scanner_t *self) {
-  if (self == NULL) PANIC("FAIL: null argument in scan_next()\n");
+bool scanner_next(scanner_t *self) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_next()\n");
 
-  if (get_kind(self) == T_EOF) {
+  if (scanner_get_kind(self) == T_EOF) {
     return true;
   }
 
-  return scan_token(self);
+  return scanner_read(self);
 }
 
-bool expect_token(scanner_t *self, token_kind_t kind) {
-  if (self == NULL) PANIC("FAIL: null argument in expect_token()\n");
+bool scanner_expect(scanner_t *self, token_kind_t kind) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_expect()\n");
 
-  if (get_kind(self) != kind) {
-    printf("SyntaxError: unexpected token. expected %s, actual %s\n", get_token_name(kind), get_token_name(get_kind(self)));
+  if (scanner_get_kind(self) != kind) {
+    printf("SyntaxError: unexpected token. expected %s, actual %s\n", scanner_get_token_name(kind), scanner_get_token_name(scanner_get_kind(self)));
     return false;
   }
 
   return true;
 }
 
-bool scan_next_with(scanner_t *self, token_kind_t kind) {
-  if (self == NULL) PANIC("FAIL: null argument in scan_next_with()\n");
+bool scanner_next_with(scanner_t *self, token_kind_t kind) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_next_with()\n");
 
-  if (!expect_token(self, kind)) {
+  if (!scanner_expect(self, kind)) {
     return false;
   }
-  scan_next(self);
+  scanner_next(self);
 
   return true;
 }
 
-bool scan_token(scanner_t *self) {
-  if (self == NULL) PANIC("FAIL: null argument in scan_token()\n");
+bool scanner_read(scanner_t *self) {
+  if (self == NULL) PANIC("FAIL: null argument in scanner_read()\n");
 
   char ch;
 
@@ -154,7 +154,7 @@ bool scan_token(scanner_t *self) {
     }
   }
 
-  if (scan_word(self)) {
+  if (read_word(self)) {
     return true;
   }
 
@@ -163,8 +163,8 @@ bool scan_token(scanner_t *self) {
   return false;
 }
 
-static bool scan_word(scanner_t *self) {
-  if (self == NULL) PANIC("FAIL: null argument in scan_word()\n");
+static bool read_word(scanner_t *self) {
+  if (self == NULL) PANIC("FAIL: null argument in read_word()\n");
 
   char ch;
   int length;
@@ -260,7 +260,7 @@ static token_t *new_token(token_kind_t kind) {
   return ptr;
 }
 
-char *get_token_name(token_kind_t kind) {
+char *scanner_get_token_name(token_kind_t kind) {
   switch (kind) {
     case T_EOF: return "EOF";
     case T_IDENTIFIER: return "Identifier";
