@@ -46,6 +46,7 @@ typedef enum token_kind {
 
   // Keyword
   T_IF = 0x80,
+  T_ELSE,
 } token_kind_t;
 
 typedef struct token {
@@ -69,5 +70,6 @@ token_kind_t get_kind(scanner_t *self);
 bool scan_next(scanner_t *self);
 bool expect_token(scanner_t *self, token_kind_t kind);
 bool scan_next_with(scanner_t *self, token_kind_t kind);
+char *get_token_name(token_kind_t kind);
 
 #endif

@@ -57,7 +57,7 @@ bool expect_token(scanner_t *self, token_kind_t kind) {
   if (self == NULL) PANIC("FAIL: null argument in expect_token()\n");
 
   if (get_kind(self) != kind) {
-    printf("SyntaxError: unexpected token\n");
+    printf("SyntaxError: unexpected token. expected %s, actual %s\n", get_token_name(kind), get_token_name(get_kind(self)));
     return false;
   }
 
@@ -129,6 +129,31 @@ static bool scan_token(scanner_t *self) {
       self->index++;
       return true;
     }
+    case '+': {
+      self->token = new_token(T_PLUS);
+      self->index++;
+      return true;
+    }
+    case '-': {
+      self->token = new_token(T_MINUS);
+      self->index++;
+      return true;
+    }
+    case '*': {
+      self->token = new_token(T_ASTER);
+      self->index++;
+      return true;
+    }
+    case '/': {
+      self->token = new_token(T_SLASH);
+      self->index++;
+      return true;
+    }
+    case '%': {
+      self->token = new_token(T_PERCENT);
+      self->index++;
+      return true;
+    }
   }
 
   if (scan_word(self)) {
@@ -185,18 +210,18 @@ static bool scan_word(scanner_t *self) {
   }
 
   // keyword
-  // if (length == 2 && memcmp(buf, "if", 2) == 0) {
-  //   self->token = new_token(T_IF);
-  //   return true;
-  // }
-  // if (length == 3 && memcmp(buf, "var", 3) == 0) {
-  //   self->token = new_token(T_VAR);
-  //   return true;
-  // }
-  // if (length == 4 && memcmp(buf, "else", 4) == 0) {
-  //   self->token = new_token(T_ELSE);
-  //   return true;
-  // }
+  if (length == 2) {
+    if (memcmp(buf, "if", 2) == 0) {
+      self->token = new_token(T_IF);
+      return true;
+    }
+  }
+  else if (length == 4) {
+    if (memcmp(buf, "else", 4) == 0) {
+      self->token = new_token(T_ELSE);
+      return true;
+    }
+  }
 
   // identifier token
   self->token = new_token(T_IDENTIFIER);
@@ -235,4 +260,46 @@ static token_t *new_token(token_kind_t kind) {
   ptr->value_length = 0;
 
   return ptr;
+}
+
+char *get_token_name(token_kind_t kind) {
+  switch (kind) {
+    case T_EOF: return "EOF";
+    case T_IDENTIFIER: return "Identifier";
+    case T_NUMBER_LITERAL: return "NumberLiteral";
+    case T_STRING_LITERAL: return "StringLiteral";
+    case T_CHAR_LITERAL: return "CharLiteral";
+    case T_OPEN_PAREN: return "\"(\"";
+    case T_CLOSE_PAREN: return "\")\"";
+    case T_OPEN_BRACKET: return "\"[\"";
+    case T_CLOSE_BRACKET: return "\"]\"";
+    case T_OPEN_BRACE: return "\"{\"";
+    case T_CLOSE_BRACE: return "\"}\"";
+    case T_SEMI: return "\";\"";
+    case T_COMMA: return "\",\"";
+    case T_PLUS: return "\"+\"";
+    case T_MINUS: return "\"-\"";
+    case T_ASTER: return "\"*\"";
+    case T_SLASH: return "\"/\"";
+    case T_PERCENT: return "\"\%\"";
+    case T_EQ1: return "\"=\"";
+    case T_EQ2: return "\"==\"";
+    case T_LT: return "\"<\"";
+    case T_LTE: return "\"<=\"";
+    case T_GT: return "\">\"";
+    case T_GTE: return "\">=\"";
+    case T_AND1: return "\"&\"";
+    case T_AND2: return "\"&&\"";
+    case T_OR1: return "\"|\"";
+    case T_OR2: return "\"||\"";
+    case T_EXCL: return "\"!\"";
+    case T_DOT: return "\".\"";
+    case T_ARROW: return "\"->\"";
+    case T_HAT: return "\"^\"";
+    case T_TILDE: return "\"~\"";
+    case T_QUEST: return "\"?\"";
+    case T_COLON: return "\":\"";
+    case T_IF: return "\"if\"";
+    case T_ELSE: return "\"else\"";
+  }
 }
