@@ -3,7 +3,6 @@
 #include "scan.h"
 #include "util.h"
 
-static bool scan_token(scanner_t *self);
 static bool scan_word(scanner_t *self);
 static char get_char(scanner_t *self);
 static bool is_eof(scanner_t *self);
@@ -23,7 +22,6 @@ scanner_t *new_scanner(char *source, int source_length) {
   ptr->line = 0;
   ptr->column = 0;
   ptr->token = NULL;
-  scan_token(ptr);
 
   return ptr;
 }
@@ -37,7 +35,7 @@ token_t *get_token(scanner_t *self) {
 token_kind_t get_kind(scanner_t *self) {
   if (self == NULL) PANIC("FAIL: null argument in get_kind()\n");
 
-  token_t * token = get_token(self);
+  token_t *token = get_token(self);
   if (token == NULL) PANIC("FAIL: get token in get_kind()\n");
 
   return token->kind;
@@ -75,7 +73,7 @@ bool scan_next_with(scanner_t *self, token_kind_t kind) {
   return true;
 }
 
-static bool scan_token(scanner_t *self) {
+bool scan_token(scanner_t *self) {
   if (self == NULL) PANIC("FAIL: null argument in scan_token()\n");
 
   char ch;
