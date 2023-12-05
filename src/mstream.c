@@ -6,7 +6,7 @@ mstream_t *new_mstream() {
   mstream_t *ptr;
   ptr = malloc(sizeof(mstream_t));
 
-  if (ptr == NULL) PANIC("FAIL: malloc in new_scanner()\n");
+  if (ptr == NULL) PANIC("FAIL: malloc in new_mstream()\n");
 
   // ptr->buf = buf;
 
