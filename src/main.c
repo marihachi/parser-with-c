@@ -5,14 +5,68 @@
 
 #ifndef TEST_MODE
 
-int main(void) {
+#define PAGE_SIZE 1024
+char buf[PAGE_SIZE];
+
+int main(int argc, char* argv[]) {
+  char *filepath;
+  int i, c;
+  int status;
+  FILE *file;
+
   list_ptr_t iter;
   node_t *program;
   node_t *node;
 
-  char *source = "int abc; int main(); int main() { }";
+  // arguments
 
-  program = parse(source, strlen(source));
+  if (argc < 2) {
+    printf("Error: Specify source file\n");
+    return -1;
+  }
+  filepath = argv[1];
+
+  // source file
+
+  file = fopen(filepath, "r");
+  if (file == NULL) {
+    printf("Error: open file failed\n");
+    return 1;
+  }
+
+  i = 0;
+  while (1) {
+    c = fgetc(file);
+    if (ferror(file)) {
+      printf("Error: read file failed\n");
+      if (fclose(file) != 0) {
+        printf("Error: close file failed\n");
+      }
+      return 1;
+    }
+    if (c == EOF) {
+      break;
+    }
+    if (i > PAGE_SIZE-2) {
+      printf("Error: too long file\n");
+      if (fclose(file) != 0) {
+        printf("Error: close file failed\n");
+      }
+      return 1;
+    }
+    buf[i] = (char)c;
+    i++;
+  }
+  buf[i] = '\0';
+
+  if (fclose(file) != 0) {
+    printf("Error: close file failed\n");
+    return 1;
+  }
+
+  // parse
+
+  program = parse(buf, strlen(buf));
   if (program == NULL) return 1;
 
   printf("program.kind %d\n", program->kind);
