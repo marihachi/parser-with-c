@@ -3,6 +3,7 @@
 #include "scanner.h"
 #include "util.h"
 
+static bool read_token(scanner_t *self);
 static bool read_word(scanner_t *self);
 static char get_char(scanner_t *self);
 static bool is_eof(scanner_t *self);
@@ -24,6 +25,12 @@ scanner_t *new_scanner(char *source, int source_length) {
   ptr->token = NULL;
 
   return ptr;
+}
+
+bool scanner_init(scanner_t *self) {
+  if (!read_token(self)) return false;
+
+  return true;
 }
 
 token_t *scanner_get_token(scanner_t *self) {
@@ -48,14 +55,14 @@ bool scanner_next(scanner_t *self) {
     return true;
   }
 
-  return scanner_read(self);
+  return read_token(self);
 }
 
 bool scanner_expect(scanner_t *self, token_kind_t kind) {
   if (self == NULL) PANIC("FAIL: null argument in scanner_expect()\n");
 
   if (scanner_get_kind(self) != kind) {
-    printf("SyntaxError: unexpected token. expected %s, actual %s\n", scanner_get_token_name(kind), scanner_get_token_name(scanner_get_kind(self)));
+    printf("SyntaxError: unexpected token. expected %s, actual %s\n", token_kind_get_name(kind), token_kind_get_name(scanner_get_kind(self)));
     return false;
   }
 
@@ -73,7 +80,7 @@ bool scanner_next_with(scanner_t *self, token_kind_t kind) {
   return true;
 }
 
-bool scanner_read(scanner_t *self) {
+bool read_token(scanner_t *self) {
   if (self == NULL) PANIC("FAIL: null argument in scanner_read()\n");
 
   char ch;
@@ -260,7 +267,7 @@ static token_t *new_token(token_kind_t kind) {
   return ptr;
 }
 
-char *scanner_get_token_name(token_kind_t kind) {
+char *token_kind_get_name(token_kind_t kind) {
   switch (kind) {
     case T_EOF: return "EOF";
     case T_IDENTIFIER: return "Identifier";
@@ -300,4 +307,5 @@ char *scanner_get_token_name(token_kind_t kind) {
     case T_IF: return "\"if\"";
     case T_ELSE: return "\"else\"";
   }
+  PANIC("FAIL: unknown kind\n");
 }

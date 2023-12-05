@@ -16,7 +16,7 @@ node_t *parse(char *input, int input_length) {
   scanner_t *s;
 
   s = new_scanner(input, input_length);
-  if (!scanner_read(s)) return NULL;
+  if (!scanner_init(s)) return NULL;
 
   node_t *node = NULL;
   if (!parse_decls(s, &node)) return NULL;

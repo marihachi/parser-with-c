@@ -8,30 +8,15 @@
 #define PAGE_SIZE 1024
 char buf[PAGE_SIZE];
 
-int main(int argc, char* argv[]) {
-  char *filepath;
+bool read_file(char *filepath, char *buf_ptr, int buf_size) {
   int i, c;
   int status;
   FILE *file;
 
-  list_ptr_t iter;
-  node_t *program;
-  node_t *node;
-
-  // arguments
-
-  if (argc < 2) {
-    printf("Error: Specify source file\n");
-    return -1;
-  }
-  filepath = argv[1];
-
-  // source file
-
   file = fopen(filepath, "r");
   if (file == NULL) {
     printf("Error: open file failed\n");
-    return 1;
+    return false;
   }
 
   i = 0;
@@ -42,17 +27,17 @@ int main(int argc, char* argv[]) {
       if (fclose(file) != 0) {
         printf("Error: close file failed\n");
       }
-      return 1;
+      return false;
     }
     if (c == EOF) {
       break;
     }
-    if (i > PAGE_SIZE-2) {
+    if (i > buf_size-2) {
       printf("Error: too long file\n");
       if (fclose(file) != 0) {
         printf("Error: close file failed\n");
       }
-      return 1;
+      return false;
     }
     buf[i] = (char)c;
     i++;
@@ -61,8 +46,28 @@ int main(int argc, char* argv[]) {
 
   if (fclose(file) != 0) {
     printf("Error: close file failed\n");
-    return 1;
+    return false;
   }
+
+  return true;
+}
+
+int main(int argc, char* argv[]) {
+  char *filepath;
+
+  list_ptr_t iter;
+  node_t *program;
+  node_t *node;
+
+  if (argc < 2) {
+    printf("Error: Specify source file\n");
+    return -1;
+  }
+  filepath = argv[1];
+
+  // load source file
+
+  if (!read_file(filepath, buf, sizeof(buf))) return 1;
 
   // parse
 
